@@ -18,7 +18,7 @@
                         </span>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-title">Calendar</span>
+                    <span class="menu-title">Kalender</span>
                 </a>
 
                 <a class="menu-link" href="{{ route('users.index') }}">

@@ -44,7 +44,8 @@
 						<!--begin::Wrapper-->
 						<div class="w-lg-500px p-10 p-lg-15 mx-auto">
 							<!--begin::Form-->
-							<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="#">
+							<form class="form w-100" action="{{ route('login.post') }}" method="POST">
+								@csrf
 								<!--begin::Heading-->
 								<div class="text-center mb-10">
 									<!--begin::Title-->
@@ -55,11 +56,14 @@
 								<!--begin::Input group-->
 								<div class="fv-row mb-10">
 									<!--begin::Label-->
-									<label class="form-label fs-6 fw-bolder text-dark">Email</label>
+									<label class="form-label fs-6 fw-bolder text-dark">Username</label>
 									<!--end::Label-->
 									<!--begin::Input-->
-									<input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" />
+									<input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" />
 									<!--end::Input-->
+									@error('username')
+										<div class="error text-danger">{{ $message }}</div>
+									@enderror
 								</div>
 								<!--end::Input group-->
 								<!--begin::Input group-->
@@ -68,14 +72,13 @@
 									<div class="d-flex flex-stack mb-2">
 										<!--begin::Label-->
 										<label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
-										<!--end::Label-->
-										<!--begin::Link-->
-										<a href="../../demo8/dist/authentication/layouts/aside/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
-										<!--end::Link-->
 									</div>
 									<!--end::Wrapper-->
 									<!--begin::Input-->
 									<input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" />
+									@error('password')
+										<div class="error text-danger">{{ $message }}</div>
+									@enderror
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
@@ -85,6 +88,10 @@
 									<button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
 										<span class="indicator-label">Login</span>
 									</button>
+
+									@error('failed')
+										<div class="error text-danger">{{ $message }}</div>
+									@enderror
 									<!--end::Submit button-->
 
 

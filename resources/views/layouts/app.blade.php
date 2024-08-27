@@ -20,7 +20,7 @@
 						<div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
 							<!--begin::Symbol-->
 							<div class="symbol symbol-50px">
-								<img src="assets/media/avatars/300-1.jpg" alt="" />
+								<img src="assets/media/avatars/blank.png" alt="" />
 							</div>
 							<!--end::Symbol-->
 							<!--begin::Wrapper-->
@@ -30,14 +30,14 @@
 									<!--begin::Info-->
 									<div class="flex-grow-1 me-2">
 										<!--begin::Username-->
-										<a href="#" class="text-white text-hover-primary fs-6 fw-bold">Paul Melone</a>
+										<a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{ ucwords(str_replace('_', ' ', auth()->user()->username))  }}</a>
 										<!--end::Username-->
 										<!--begin::Description-->
-										<span class="text-gray-600 fw-bold d-block fs-8 mb-1">Python Dev</span>
+										<span class="text-gray-600 fw-bold d-block fs-8 mb-1">{{ ucwords(str_replace('_', ' ', auth()->user()->role)) }}</span>
 										<!--end::Description-->
 										<!--begin::Label-->
 										<div class="d-flex align-items-center text-success fs-9">
-										<span class="bullet bullet-dot bg-success me-1"></span>online</div>
+										<span class="bullet bullet-dot bg-success me-1"></span>Aktif</div>
 										<!--end::Label-->
 									</div>
 									<!--end::Info-->
@@ -74,10 +74,13 @@
 									</a>
                         </div>
 
-						<a href="#" class="btn btn-custom btn-primary w-100">
-							<span class="btn-label text-white fw-bolder fs-4">Logout</span>
-							<!--begin::Svg Icon | path: icons/duotune/general/gen005.svg-->
-							<span class="svg-icon btn-icon svg-icon-2">
+						<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-grid">
+							@csrf
+							@method('POST')
+							<button type="submit" style="border: none;" class="btn btn-custom btn-primary w-100"
+								id="sign-out">
+								<span class="btn-label text-white fw-bolder fs-4">Logout</span>
+								<span class="svg-icon btn-icon svg-icon-2">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 									<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z" fill="black" />
 									<rect x="7" y="17" width="6" height="2" rx="1" fill="black" />
@@ -86,8 +89,9 @@
 									<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
 								</svg>
 							</span>
-							<!--end::Svg Icon-->
-						</a>
+							</button>
+						</form>
+
 					</div>
 					<!--end::Footer-->
 				</div>
@@ -202,10 +206,13 @@
 			</span>
 			<!--end::Svg Icon-->
 		</div>
+
+		@yield('side-form')
 		<!--end::Scrolltop-->
 
 		<!--begin::Javascript-->
 		@include('layouts.js')
+		@yield('script')
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

@@ -21,8 +21,8 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">Shopping Cart</div>
-                            <div class="fw-bold text-gray-400">Lands, Houses, Ranchos, Farms</div>
+                            <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">Jumlah Kelas</div>
+                            <div class="fw-bold text-gray-400">10</div>
                         </div>
                         <!--end::Body-->
                     </a>
@@ -43,8 +43,8 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <div class="text-white fw-bolder fs-2 mb-2 mt-5">Appartments</div>
-                            <div class="fw-bold text-white">Flats, Shared Rooms, Duplex</div>
+                            <div class="text-white fw-bolder fs-2 mb-2 mt-5">Jumlah Guru</div>
+                            <div class="fw-bold text-white">10</div>
                         </div>
                         <!--end::Body-->
                     </a>
@@ -65,8 +65,8 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">Sales Stats</div>
-                            <div class="fw-bold text-gray-100">50% Increased for FY20</div>
+                            <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">Jumlah Siswa</div>
+                            <div class="fw-bold text-gray-100">10</div>
                         </div>
                         <!--end::Body-->
                     </a>

@@ -10,6 +10,7 @@
 		<meta property="og:title" content="E-Library" />
 		<meta property="og:url" content="#" />
 		<meta property="og:site_name" content="E-Library" />
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<link rel="canonical" href="#" />
 		<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
 		<!--begin::Fonts-->

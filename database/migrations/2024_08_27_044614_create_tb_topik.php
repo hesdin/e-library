@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tb_topik', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
-            $table->string('username')->unique();
-            $table->enum("role",['kepala_sekolah','guru','admin']);
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('topik');
+            $table->string('deskripsi');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tb_topik');
     }
 };

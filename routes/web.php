@@ -3,6 +3,9 @@
 // use App\Http\Controllers\AuthController;
 // use App\Http\Controllers\DashboardController;
 // use App\Http\Controllers\UserController;
+
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LibrarySiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-// 
+//
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
@@ -36,9 +39,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/', 'AuthController@login')->name('login.post');
     });
 
-    
 
-    Route::group(['middleware' => ['auth']], function () {
+
+    Route::group(['middleware' => ['auth:web']], function () {
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
         Route::resource('users', 'UserController');
         Route::prefix('tenaga-kependidikan')->group(function () {
@@ -73,6 +76,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/update/{params}', 'TopikController@update')->name('topik.update');
             Route::delete('/delete/{params}', 'TopikController@delete')->name('topik.delete');
         });
-        Route::post('/logout', 'AuthController@logout')->name('logout');
-    });   
+
+        // Route::post('/logout', 'AuthController@logout')->name('logout');
+    });
+
+    Route::prefix('siswa')->as('siswa.')->middleware(['auth:siswa'])->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'dashboardSiswa'])->name('dashboard');
+        Route::get('/library/{topic_id}', [LibrarySiswaController::class, 'index'])->name('library');
+    });
+
+    Route::post('/logout', 'AuthController@logout')->name('logout');
+
 });

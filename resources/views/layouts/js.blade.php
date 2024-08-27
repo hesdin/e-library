@@ -12,3 +12,6 @@
 		<script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
 		<script src="{{ asset('assets/js/custom/utilities/modals/users-search.js') }}"></script>
 		<!--end::Page Custom Javascript-->
+
+
+        @stack('scripts')

@@ -9,7 +9,7 @@
 
 
             <div class="menu-item">
-                <a class="menu-link {{ $path[0] == 'dashboard' ? 'active' : '' }}" href="{{ url('/dashboard') }}">
+                <a class="menu-link {{ $path[0] == 'dashboard' ? 'active' : '' }}" href="{{ route('siswa.dashboard') }}">
                     <span class="menu-icon">
                       <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                       <span class="svg-icon svg-icon-2">
@@ -66,7 +66,7 @@
                         @foreach ($topics as $topic)
                             <a
                                 class="menu-link {{ $path[0] == "{ $topic->topik }" ? 'active' : '' }}"
-                                href="{{ route('siswa.library.index', $topic->id) }}">
+                                href="{{ route('siswa.library', $topic->id) }}">
                                 <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                                 </span>

@@ -8,6 +8,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         return view('admin.dashboard');
+    }
+
+    public function dashboardSiswa()
+    {
+        // dd(auth()->guard('siswa')->check());
+        return view('siswa.dashboard');
     }
 }

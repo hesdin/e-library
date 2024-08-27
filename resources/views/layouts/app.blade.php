@@ -20,7 +20,7 @@
 						<div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
 							<!--begin::Symbol-->
 							<div class="symbol symbol-50px">
-								<img src="assets/media/avatars/blank.png" alt="" />
+								<img src="{{ asset('assets/media/avatars/blank.png') }}" alt="" />
 							</div>
 							<!--end::Symbol-->
 							<!--begin::Wrapper-->
@@ -30,7 +30,7 @@
 									<!--begin::Info-->
 									<div class="flex-grow-1 me-2">
 										<!--begin::Username-->
-										<a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{ ucwords(str_replace('_', ' ', auth()->user()->username))  }}</a>
+										<a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{ Str::ucfirst(auth()->user()->nama ?? auth()->user()->username )  }}</a>
 										<!--end::Username-->
 										<!--begin::Description-->
 										<span class="text-gray-600 fw-bold d-block fs-8 mb-1">{{ ucwords(str_replace('_', ' ', auth()->user()->role)) }}</span>
@@ -53,7 +53,12 @@
 					</div>
 					<!--end::Aside Toolbarl-->
 					<!--begin::Aside menu-->
-					@include('layouts.aside')
+                    @if (auth()->guard('siswa')->check())
+                        @include('layouts.aside-siswa')
+                    @else
+                        @include('layouts.aside')
+                    @endif
+
 					<!--end::Aside menu-->
 					<!--begin::Footer-->
 					<div class="aside-footer flex-column-auto py-5" id="kt_aside_footer">

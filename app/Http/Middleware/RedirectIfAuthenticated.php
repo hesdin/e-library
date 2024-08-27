@@ -17,14 +17,27 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
+        // Jika tidak ada guard yang diberikan, gunakan default [null]
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
+            // Cek apakah guard aktif
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // Tentukan redirect berdasarkan guard yang aktif
+                switch ($guard) {
+                    case 'siswa':
+                        return redirect()->route('siswa.dashboard');
+                    case 'web':
+                        return redirect()->route('dashboard');
+                    default:
+                        // Anda bisa menambahkan lebih banyak kondisi untuk guard lainnya jika diperlukan
+                        return redirect(RouteServiceProvider::HOME);
+                }
             }
         }
 
+        // Jika tidak ada guard yang aktif, lanjutkan dengan request
         return $next($request);
     }
+
 }

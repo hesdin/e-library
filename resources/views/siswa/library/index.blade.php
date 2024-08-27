@@ -2,6 +2,36 @@
 
 @section('content')
 
+@push('styles')
+
+<style>
+    .alternative-thumbnail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff; /* Warna biru sebagai background */
+    color: white;
+    text-align: center;
+    min-height: 375px;
+    border-radius: 10px;
+}
+
+.alternative-thumbnail h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.alternative-thumbnail p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+@endpush
+
 
 <div id="kt_content_container" class="container-xxl mt-10">
     <!--begin::Home card-->
@@ -108,16 +138,25 @@
                                 <!--begin::Hot sales post-->
                                 <div class="card-xl-stretch me-md-6">
                                     <!--begin::Overlay-->
-                                    <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="#ebook">
-                                        lihat
-                                        <iframe src="{{ $ebook->file_url }}"
-                                            id="ebook"
-                                            width="300px"
-                                            height="300px"
-                                            frameBorder="0"
-                                            allow="autoplay; fullscreen"
-                                            allowFullScreen>
-                                        </iframe>
+                                    <a class="d-block overlay iframe" href="https://pdfobject.com/pdf/sample.pdf">
+                                        <!--begin::Image-->
+                                        {{-- <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-375px" style="background-image:url(https://storage.googleapis.com/gcp-depo/demosiplah/IP/02MBBS0901.png)"></div> --}}
+                                        <!--end::Image-->
+
+                                        <!-- Alternatif Thumbnail -->
+                                        <div class="overlay-wrapper card-rounded min-h-350px d-flex align-items-center justify-content-center bg-primary text-white text-center" style="display: none;">
+                                            <div>
+                                                <h3 class="text-white">{{ $ebook->judul }}</h3>
+                                                {{-- <p>{{ $ebook->deskripsi  }}</p> --}}
+                                            </div>
+                                        </div>
+                                        <!--end::Image-->
+
+                                        <!--begin::Action-->
+                                        <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+                                            <i class="bi bi-eye-fill fs-2x text-white"></i>
+                                        </div>
+                                        <!--end::Action-->
                                     </a>
                                     <!--end::Overlay-->
                                     <!--begin::Body-->
@@ -268,11 +307,39 @@
 <!--begin::Page Vendors Javascript(used by this page)-->
 <script src="{{ asset('assets/plugins/custom/fslightbox/fslightbox.bundle.js') }}"></script>
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $(document).ready(function() {
+/* Apply fancybox to multiple items */
+
+$("a.iframe").fancybox({
+  iframe: {
+    css: {
+      width: '100%',
+      height: '100%'
+    }
+  },
+  buttons: [
+    'zoom',
+    'close'
+  ],
+  width: '100%',
+  height: '100%',
+  fullScreen: true // Tambahkan ini untuk mendukung tombol fullscreen
+});
+
+});
+</script>
+
 <!--end::Page Vendors Javascript-->
 <!--begin::Page Custom Javascript(used by this page)-->
 <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
 <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
 <script src="{{ asset('assets/js/custom/utilities/modals/users-search.js') }}"></script>
+
+
 
 @endpush

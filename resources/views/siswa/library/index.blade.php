@@ -91,7 +91,7 @@
                                         <!--begin::Content-->
                                         <div class="fs-6 fw-bolder">
                                             <!--begin::Author-->
-                                            <a href="#" class="text-gray-700 text-hover-primary">Jane Miller</a>
+                                            <a href="#" class="text-gray-700 text-hover-primary">{{$video->topik}}</a>
                                             <!--end::Author-->
                                             <!--begin::Date-->
                                             <span class="text-muted">on Mar 21 2021</span>

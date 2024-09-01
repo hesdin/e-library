@@ -77,6 +77,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::delete('/delete/{params}', 'TopikController@delete')->name('topik.delete');
         });
 
+        Route::prefix('sumber-belajar')->group(function () {
+            Route::get('/', 'SumberBelajarController@index')->name('sumber_belajar.index');
+            Route::get('/datatable', 'SumberBelajarController@datatable')->name('sumber_belajar.datatable');
+            Route::get('/create', 'SumberBelajarController@create')->name('sumber_belajar.create');
+            Route::post('/store', 'SumberBelajarController@store')->name('sumber_belajar.store');
+        });
+
         // Route::post('/logout', 'AuthController@logout')->name('logout');
     });
 

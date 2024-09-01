@@ -152,7 +152,7 @@
 
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion {{ $path[0] == 'topik' ? 'hover show' : '' }}"
+                  class="menu-item menu-accordion {{ $path[0] == 'topik' || $path[0] == 'sumber-belajar' ? 'hover show' : '' }}"
                 >
                   <span class="menu-link">
                     <span class="menu-icon">
@@ -195,8 +195,8 @@
                     </div>
                     <div class="menu-item">
                       <a
-                        class="menu-link"
-                        href="../../demo1/dist/layouts/toolbars/toolbar-2.html"
+                        class="menu-link {{ $path[0] == 'sumber-belajar' ? 'active' : '' }}"
+                        href="{{ route('sumber_belajar.index') }}"
                       >
                         <span class="menu-bullet">
                           <span class="bullet bullet-dot"></span>

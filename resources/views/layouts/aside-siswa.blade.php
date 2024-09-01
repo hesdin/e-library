@@ -31,7 +31,7 @@
 
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion {{ $path[0] == 'topik' ? 'hover show' : '' }}"
+                  class="menu-item menu-accordion hover show"
                     >
                   <span class="menu-link">
                     <span class="menu-icon">

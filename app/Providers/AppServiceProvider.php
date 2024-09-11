@@ -21,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('layouts.aside-siswa', function ($view) {
+         $specificViews = ['layouts.aside-siswa','layouts.aside.guru'];
+        View::composer($specificViews, function ($view) {
             $topics = Topik::all();
             $view->with('topics', $topics);
         });

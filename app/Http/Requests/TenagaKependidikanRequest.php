@@ -27,7 +27,7 @@ class TenagaKependidikanRequest extends FormRequest
             'jenis_kelamin' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'nuptk' => 'required',
+            'nuptk' => 'nullable',
             'status_kepegawaian' => 'required',
             'jabatan' => 'required'
         ];
@@ -41,7 +41,6 @@ class TenagaKependidikanRequest extends FormRequest
                 'jenis_kelamin.required' => 'kolom jenis_kelamin tidak boleh kosong.',
                 'tempat_lahir.required' => 'kolom tempat lahir tidak boleh kosong.',
                 'tanggal_lahir.required' => 'kolom tanggal lahir tidak boleh kosong.',
-                'nuptk.required' => 'kolom nuptk tidak boleh kosong.',
                 'status_kepegawaian.required' => 'kolom status kepegawaian tidak boleh kosong.',
                 'jabatan.required' => 'kolom jabatan tidak boleh kosong.',
             ]; 

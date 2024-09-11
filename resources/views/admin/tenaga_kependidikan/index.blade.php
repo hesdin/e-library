@@ -21,7 +21,6 @@
                                             <th>No</th>
                                             <th>NIP</th>
                                             <th>Nama</th>
-                                            <th>NUPTK</th>
                                             <th>Jabatan</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -126,12 +125,6 @@
                         </div>
                     </div>
 
-                    <div class="mb-10">
-                        <label class="form-label">NUPTK</label>
-                        <input type="text" id="nuptk" class="form-control" name="nuptk" placeholder="Masukkan NUPTK">
-                        <small class="text-danger nuptk_error"></small>
-                    </div>
-                    
                     <div class="mb-10">
                         <label class="form-label">Status Kepegawaian</label>
                         <select class="form-control" id="status_kepegawaian" name="status_kepegawaian">
@@ -341,9 +334,6 @@
                 className : 'text-right',
             }, {
                 data: 'nama',
-                className : 'text-right',
-            }, {
-                data: 'nuptk',
                 className : 'text-right',
             }, {
                 data: 'jabatan',

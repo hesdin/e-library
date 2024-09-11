@@ -37,7 +37,7 @@ class TenagaKependidikanController extends BaseController
             $data->jenis_kelamin = $request->jenis_kelamin;
             $data->tempat_lahir = $request->tempat_lahir;
             $data->tanggal_lahir = $request->tanggal_lahir;
-            $data->nuptk = $request->nuptk;
+            $data->nuptk = '-';
             $data->status_kepegawaian = $request->status_kepegawaian;
             $data->jabatan = $request->jabatan;
             $data->save();
@@ -81,7 +81,7 @@ class TenagaKependidikanController extends BaseController
             $data->jenis_kelamin = $request->jenis_kelamin;
             $data->tempat_lahir = $request->tempat_lahir;
             $data->tanggal_lahir = $request->tanggal_lahir;
-            $data->nuptk = $request->nuptk;
+            $data->nuptk = '-';
             $data->status_kepegawaian = $request->status_kepegawaian;
             $data->jabatan = $request->jabatan;
             $data->save();

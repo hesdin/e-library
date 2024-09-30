@@ -111,6 +111,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/show/{params}', 'JurnalController@show')->name('jurnal.show');
             Route::post('/update/{params}', 'JurnalController@update')->name('jurnal.update');
             Route::delete('/delete/{params}', 'JurnalController@delete')->name('jurnal.delete');
+            Route::get('/export', 'JurnalController@export')->name('jurnal.export');
         });
 
         Route::prefix('library')->as('library.')->group(function () {

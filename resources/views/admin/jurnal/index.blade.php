@@ -206,17 +206,26 @@
                 rowGroup: {
                     dataSrc: 'tanggal',
                     startRender: function(rows, group) {
-                        console.log(group);
                         let formattedString = group.replace(/_/g, ' ');
                         // Ubah semua huruf menjadi huruf besar
                         formattedString = formattedString.toUpperCase();
                         return $('<tr/>')
-                            .append(
-                                $('<td/>').attr('colspan', 6).append(
-                                    $('<span/>').addClass('badge badge-success').text(formatDate(group))
-                                )
+                        .append(
+                            // Span with badge in a td that spans 5 columns
+                            $('<td/>').attr('colspan',6).append(
+                                $('<span/>').addClass('badge badge-success').text(formatDate(group))
+                            ),
+                            // Button in a separate td with 1 column
+                            $('<td/>').append(
+                                $('<button/>')
+                                    .addClass('btn btn-primary btn-sm') // Button style
+                                    .text('Cetak Jurnal') // Text for the button
+                                    .on('click', function() {
+                                        window.open(`/jurnal/export?tanggal=2024-09-10`);
+                                    })
                             )
-                            .attr('data-name', group);
+                        )
+                        .attr('data-name', group);
                     },
                 },
                 "rowsGroup": [-1, 0, 3],

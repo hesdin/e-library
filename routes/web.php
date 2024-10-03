@@ -5,6 +5,8 @@
 // use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImportSiswaController;
+use App\Http\Controllers\ImportTenagaKependidikanController;
 use App\Http\Controllers\LibrarySiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +44,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
     Route::group(['middleware' => ['auth:web']], function () {
+
+        Route::get('import-siswa', [ImportSiswaController::class, 'showForm'])->name('import-siswa.form');
+        Route::post('import-siswa', [ImportSiswaController::class, 'import'])->name('import-siswa');
+        Route::post('import-tenaga-kependidikan', [ImportTenagaKependidikanController::class, 'import'])->name('import-tenaga-kependidikan');
+
+
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
         Route::resource('users', 'UserController');
         Route::prefix('tenaga-kependidikan')->group(function () {
@@ -118,7 +126,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/dashboard', [DashboardController::class, 'dashboardSiswa'])->name('dashboard');
             Route::get('/library/{topic_id}', [LibrarySiswaController::class, 'index'])->name('library');
         });
-        
     });
 
     Route::prefix('siswa')->as('siswa.')->middleware(['auth:siswa'])->group(function () {
@@ -127,5 +134,4 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     });
 
     Route::post('/logout', 'AuthController@logout')->name('logout');
-
 });

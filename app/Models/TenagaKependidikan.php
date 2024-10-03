@@ -11,9 +11,22 @@ class TenagaKependidikan extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'uuid',
+        'nip',
+        'nama',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'nuptk',
+        'status_kepegawaian',
+        'jabatan',
+    ];
+
     protected $table = 'tb_tenaga_kependidikan';
 
-    protected static function boot(){
+    protected static function boot()
+    {
         parent::boot();
         static::creating(function ($model) {
             try {

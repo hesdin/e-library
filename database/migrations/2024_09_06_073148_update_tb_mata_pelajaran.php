@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tb_mata_pelajaran', function (Blueprint $table) {
-            $table->foreignId('tenaga_kependidikan_id')->constrained('tb_tenaga_kependidikan')->onDelete('cascade')->onUpdate('cascade')->after('uuid');
+            if (!Schema::hasColumn('tb_mata_pelajaran', 'tenaga_kependidikan_id')) {
+                $table->foreignId('tenaga_kependidikan_id')
+                    ->constrained('tb_tenaga_kependidikan')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade')
+                    ->after('uuid');
+            }
         });
     }
 
@@ -21,6 +27,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('tb_mata_pelajaran', function (Blueprint $table) {
+            $table->dropForeign(['tenaga_kependidikan_id']);
+            $table->dropColumn('tenaga_kependidikan_id');
+        });
     }
 };

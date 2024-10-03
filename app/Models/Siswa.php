@@ -37,6 +37,11 @@ class Siswa extends Authenticatable
         'password',
     ];
 
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
+    }
+
     protected static function boot()
     {
         parent::boot();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SumberBelajar;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +15,11 @@ class DashboardController extends Controller
 
     public function dashboardSiswa()
     {
-        // dd(auth()->guard('siswa')->check());
-        return view('siswa.dashboard');
+        $siswa = auth()->guard('siswa')->user();
+
+        $count_ebooks = SumberBelajar::where('kategori', 'ebook')->count();
+        $count_videos = SumberBelajar::where('kategori', 'video')->count();
+
+        return view('siswa.dashboard', compact('siswa', 'count_ebooks', 'count_videos'));
     }
 }

@@ -12,7 +12,13 @@ class MataPelajaran extends Model
     use HasFactory;
     protected $table = 'tb_mata_pelajaran';
 
-    protected static function boot(){
+    public function sumberBelasajar()
+    {
+        return $this->hasMany(SumberBelajar::class, 'mata_pelajaran_id', 'id');
+    }
+
+    protected static function boot()
+    {
         parent::boot();
         static::creating(function ($model) {
             try {

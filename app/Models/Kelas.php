@@ -12,7 +12,13 @@ class Kelas extends Model
     use HasFactory;
     protected $table = 'tb_kelas';
 
-    protected static function boot(){
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class, 'kelas_id');
+    }
+
+    protected static function boot()
+    {
         parent::boot();
         static::creating(function ($model) {
             try {

@@ -75,6 +75,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/show/{params}', 'SiswaController@show')->name('siswa.show');
             Route::post('/update/{params}', 'SiswaController@update')->name('siswa.update');
             Route::delete('/delete/{params}', 'SiswaController@delete')->name('siswa.delete');
+            Route::get('/siswaByKelas/{params}', 'SiswaController@siswaByKelas')->name('siswa.siswaByKelas');
         });
         Route::prefix('topik')->group(function () {
             Route::get('/', 'TopikController@index')->name('topik.index');
@@ -120,6 +121,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/update/{params}', 'JurnalController@update')->name('jurnal.update');
             Route::delete('/delete/{params}', 'JurnalController@delete')->name('jurnal.delete');
             Route::get('/export', 'JurnalController@export')->name('jurnal.export');
+        });
+
+        Route::prefix('capaian-kompetensi')->group(function () {
+            Route::get('/', 'CapaianKompetensiController@index')->name('capaian_kompetensi.index');
+            Route::get('/datatable', 'CapaianKompetensiController@datatable')->name('capaian_kompetensi.datatable');
+            Route::post('/store', 'CapaianKompetensiController@store')->name('capaian_kompetensi.store');
+            Route::get('/show/{params}', 'CapaianKompetensiController@show')->name('capaian_kompetensi.show');
+            Route::post('/update/{params}', 'CapaianKompetensiController@update')->name('capaian_kompetensi.update');
+            Route::delete('/delete/{params}', 'CapaianKompetensiController@delete')->name('capaian_kompetensi.delete');
+        });
+
+        Route::prefix('penilaian-sikap')->group(function () {
+            Route::get('/', 'PenilaianSikapController@index')->name('penilaian_sikap.index');
         });
 
         Route::prefix('library')->as('library.')->group(function () {

@@ -18,6 +18,18 @@
 
                                 <div class="mb-10">
                                     <label class="form-label">Kompetensi</label>
+                                    <select class="form-select form-control" id="mata_pelajaran_id" name="mata_pelajaran_id"
+                                        data-control="select2" data-placeholder="Pilih Mata Pelajaran">
+                                        <option></option>
+                                        @foreach ($mapel as $val)
+                                            <option value="{{ $val->id }}">{{ $val->mata_pelajaran }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small class="text-danger mata_pelajaran_id_error"></small>
+                                </div>  
+
+                                <div class="mb-10">
+                                    <label class="form-label">Kompetensi</label>
                                     <select class="form-select form-control" id="kompetensi_id" name="kompetensi_id"
                                         data-control="select2" data-placeholder="Pilih Kompetensi">
                                         <option></option>
@@ -27,6 +39,8 @@
                                     </select>
                                     <small class="text-danger kompetensi_id_error"></small>
                                 </div>  
+
+                                
 
                                 <div class="mb-10">
                                     <label class="form-label">Kelas</label>
@@ -55,7 +69,7 @@
                                         </textarea>
                                         <small class="text-danger hasil_error"></small>        
                                     </div>
-
+<!-- 
                                     <div class="row mb-10">
                                         <div class="col-lg-6">
                                             <label class="form-label">Jumlah Siswa Hadir</label>
@@ -67,7 +81,7 @@
                                             <input type="text" id="tidak_hadir" class="form-control" name="tidak_hadir" placeholder="Masukkan jumlah siswa">
                                             <small class="text-danger tidak_hadir_error"></small>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="row mb-10">
                                         <div class="col-lg-6">
@@ -81,6 +95,19 @@
                                             <small class="text-danger keterangan_error"></small>
                                         </div>
                                     </div>
+
+                                    <table class="table table-striped gy-7 gs-7" id="tb_absen">
+                                        <thead>
+                                            <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                                                <th>No</th>
+                                                <th>Nama Siswa</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
 
                                     <div class="separator separator-dashed mt-8 mb-5"></div>
                                     <div class="d-flex justify-content-center gap-5">
@@ -129,6 +156,43 @@
         .catch(error => {
             console.error(error);
         });
+
+        $(document).on('change','#kelas_id', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                method : 'GET',
+                url : `/siswa/siswaByKelas/${$(this).val()}`,
+                success : function (res) {
+                    let data = res.data;
+                    let html = '';
+
+                    $.each(data,function (x,y) {
+                        html += `
+                        <tr>
+                            <td>${x+1}</td>
+                            <td> ${y.nama} </td>
+                            <td> 
+                                <input type="hidden" value="${y.id}" name="siswa_id[]">
+                                <select name="status[]" class="form-control">
+                                        <option selected disabled>Pilih</option>
+                                        <option value="hadir">hadir</option>
+                                        <option value="izin">izin</option>
+                                        <option value="sakit">sakit</option>
+                                        <option value="alpa">alpa</option>
+                                    </select>
+                            </td>
+                        </tr>
+                        `;
+                    })
+
+                    $('#tb_absen tbody').html(html);
+                },
+                error : function (xhr) {
+                    alert('gagal');
+                }
+            })
+        })
 
         $(document).on('submit', ".form-data", function(e) {
             e.preventDefault();

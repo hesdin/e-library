@@ -26,8 +26,8 @@ class JurnalRequest extends FormRequest
             'kelas_id' => 'required',
             'materi' => 'required',
             'hasil' => 'required',
-            'hadir' => 'required|numeric',
-            'tidak_hadir' => 'required|numeric',
+            // 'hadir' => 'required|numeric',
+            // 'tidak_hadir' => 'required|numeric',
             'tanggal' => 'required|date',
             'keterangan' => 'required'
         ];
@@ -40,8 +40,8 @@ class JurnalRequest extends FormRequest
                 'kelas_id.required' => 'kolom kelas tidak boleh kosong.',
                 'materi.required' => 'kolom materi tidak boleh kosong.',
                 'hasil.required' => 'kolom hasil tidak boleh kosong',
-                'hadir.required' => 'kolom hadir tidak boleh kosong',
-                'tidak_hadir.required' => 'kolom tidak hadir tidak boleh kosong',
+                // 'hadir.required' => 'kolom hadir tidak boleh kosong',
+                // 'tidak_hadir.required' => 'kolom tidak hadir tidak boleh kosong',
                 'tanggal.required' => 'kolom tanggal tidak boleh kosong',
                 'keterangan.required' => 'kolom keterangan tidak boleh kosong'
             ]; 

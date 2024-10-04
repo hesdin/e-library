@@ -54,20 +54,23 @@
           <!--end::Separator-->
           <!--begin::Row-->
           <div class="row g-10">
+            @php
+              function getYouTubeVideoId($url)
+              {
+                  parse_str(parse_url($url, PHP_URL_QUERY), $query);
+                  return $query['v'] ?? null;
+              }
+            @endphp
 
             @foreach ($learningResources as $video)
               @if ($video->kategori == 'video')
                 @php
-                  function getYouTubeVideoId($url)
-                  {
-                      parse_str(parse_url($url, PHP_URL_QUERY), $query);
-                      return $query['v'] ?? null;
-                  }
-
                   $videoUrl = $video->youtube_url;
                   $videoId = getYouTubeVideoId($videoUrl);
                   $thumbnailUrl = $videoId ? "https://img.youtube.com/vi/{$videoId}/mqdefault.jpg" : '';
                 @endphp
+                {{-- <img src="{{ $thumbnailUrl }}" alt="YouTube Thumbnail"> --}}
+
 
                 <!--begin::Col-->
                 <div class="col-md-4">

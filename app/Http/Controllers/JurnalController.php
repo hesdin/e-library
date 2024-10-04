@@ -13,36 +13,50 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class JurnalController extends BaseController
 {
-    public function index(){
+    public function index()
+    {
         return view('admin.jurnal.index');
     }
 
-    public function datatable(){
+    public function datatable()
+    {
         $data = array();
         try {
             $data = DB::table('tb_jurnal')
-                    ->join('tb_kompetensi_dasar','tb_jurnal.kompetensi_id','tb_kompetensi_dasar.id')
-                    ->join('tb_kelas','tb_jurnal.kelas_id','=','tb_kelas.id')
-                    ->select('tb_jurnal.id','tb_jurnal.uuid','tb_kompetensi_dasar.kompetensi_dasar','tb_jurnal.materi','tb_jurnal.hasil','tb_jurnal.hadir','tb_jurnal.tidak_hadir','tb_jurnal.tanggal','tb_jurnal.keterangan')
-                    ->get();
-
+                ->join('tb_kompetensi_dasar', 'tb_jurnal.kompetensi_id', 'tb_kompetensi_dasar.id')
+                ->join('tb_kelas', 'tb_jurnal.kelas_id', '=', 'tb_kelas.id')
+                ->select('tb_jurnal.id', 'tb_jurnal.uuid', 'tb_kompetensi_dasar.kompetensi_dasar', 'tb_jurnal.materi', 'tb_jurnal.hasil', 'tb_jurnal.hadir', 'tb_jurnal.tidak_hadir', 'tb_jurnal.tanggal', 'tb_jurnal.keterangan')
+                ->get();
         } catch (\Throwable $th) {
             return $this->sendError('Gagal', $th->getMessage(), 200);
         }
         return $this->sendResponse($data, 'Mata Pelajaran Fetched Success');
     }
 
-     public function create(){
+    public function create()
+    {
+
         $kd = DB::table('tb_kompetensi_dasar')
-            ->join('tb_mata_pelajaran','tb_kompetensi_dasar.mata_pelajaran_id','=','tb_mata_pelajaran.id')
-            ->select('tb_kompetensi_dasar.id','kompetensi_inti')
-            ->where('tb_mata_pelajaran.tenaga_kependidikan_id',auth()->user()->tenaga_kependidikan_id)
+            ->join('tb_mata_pelajaran', 'tb_kompetensi_dasar.mata_pelajaran_id', '=', 'tb_mata_pelajaran.id')
+            ->select('tb_kompetensi_dasar.id', 'kompetensi_inti')
+            ->where('tb_mata_pelajaran.tenaga_kependidikan_id', auth()->user()->tenaga_kependidikan_id)
             ->get();
+
+        // dd($kd);
+
+        $mapel = DB::table("tb_mata_pelajaran")
+            ->where('tenaga_kependidikan_id', auth()->user()->tenaga_kependidikan_id)
+            ->get();
+
+        // dd($mapel);
+
         $kelas = DB::table("tb_kelas")->get();
-        return view('admin.jurnal.create',compact('kd','kelas'));
+
+        return view('admin.jurnal.create', compact('kd', 'kelas', 'mapel'));
     }
 
-    public function store(JurnalRequest $request){
+    public function store(JurnalRequest $request)
+    {
         $data = array();
         try {
 
@@ -56,7 +70,6 @@ class JurnalController extends BaseController
             $data->tanggal = $request->tanggal;
             $data->keterangan = $request->keterangan;
             $data->save();
-
         } catch (\Throwable $th) {
             return $this->sendError('Gagal', $th->getMessage(), 200);
         }
@@ -69,13 +82,13 @@ class JurnalController extends BaseController
 
         $tanggal = request('tanggal');
         $data = array();
-    
-       $data = DB::table('tb_jurnal')
-                    ->join('tb_kompetensi_dasar','tb_jurnal.kompetensi_id','tb_kompetensi_dasar.id')
-                    ->join('tb_kelas','tb_jurnal.kelas_id','=','tb_kelas.id')
-                    ->select('tb_jurnal.id','tb_jurnal.uuid','tb_kompetensi_dasar.kompetensi_dasar','tb_jurnal.materi','tb_jurnal.hasil','tb_jurnal.hadir','tb_jurnal.tidak_hadir','tb_jurnal.tanggal','tb_jurnal.keterangan','tb_kelas.kelas')
-                    ->where('tb_jurnal.tanggal',$tanggal)
-                    ->get();
+
+        $data = DB::table('tb_jurnal')
+            ->join('tb_kompetensi_dasar', 'tb_jurnal.kompetensi_id', 'tb_kompetensi_dasar.id')
+            ->join('tb_kelas', 'tb_jurnal.kelas_id', '=', 'tb_kelas.id')
+            ->select('tb_jurnal.id', 'tb_jurnal.uuid', 'tb_kompetensi_dasar.kompetensi_dasar', 'tb_jurnal.materi', 'tb_jurnal.hasil', 'tb_jurnal.hadir', 'tb_jurnal.tidak_hadir', 'tb_jurnal.tanggal', 'tb_jurnal.keterangan', 'tb_kelas.kelas')
+            ->where('tb_jurnal.tanggal', $tanggal)
+            ->get();
 
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getProperties()->setCreator('DINAS PENDIDIKAN')
@@ -138,7 +151,7 @@ class JurnalController extends BaseController
             $sheet->setCellValue('A' . $cell, $key + 1);
             $sheet->setCellValue('B' . $cell, $value->tanggal);
             $sheet->setCellValue('C' . $cell, $value->kelas);
-            $sheet->setCellValue('D' . $cell, strip_tags($value->kompetensi_dasar) );
+            $sheet->setCellValue('D' . $cell, strip_tags($value->kompetensi_dasar));
             $sheet->setCellValue('E' . $cell, strip_tags($value->materi));
             $sheet->setCellValue('F' . $cell, strip_tags($value->hasil));
             $sheet->setCellValue('G' . $cell, strip_tags($value->hadir));
@@ -161,14 +174,14 @@ class JurnalController extends BaseController
 
 
         $spreadsheet->getActiveSheet()->getHeaderFooter()
-                ->setOddHeader('&C&H' . url()->current());
-            $spreadsheet->getActiveSheet()->getHeaderFooter()
-                ->setOddFooter('&L&B &RPage &P of &N');
-            $class = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class;
-            \PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', $class);
-            header('Content-Type: application/pdf');
-            header('Cache-Control: max-age=0');
-            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf');
+            ->setOddHeader('&C&H' . url()->current());
+        $spreadsheet->getActiveSheet()->getHeaderFooter()
+            ->setOddFooter('&L&B &RPage &P of &N');
+        $class = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class;
+        \PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', $class);
+        header('Content-Type: application/pdf');
+        header('Cache-Control: max-age=0');
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf');
 
         $writer->save('php://output');
     }

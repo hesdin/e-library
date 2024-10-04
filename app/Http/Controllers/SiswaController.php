@@ -104,4 +104,14 @@ class SiswaController extends BaseController
         }
         return $this->sendResponse($data, 'Siswa Delete success');
     }
+
+    public function siswaByKelas($params){
+       $data = array();
+        try {
+            $data = Siswa::where("kelas_id",$params)->get();
+        } catch (\Throwable $th) {
+            return $this->sendError('Gagal', $th->getMessage(), 200);
+        }
+        return $this->sendResponse($data, 'Siswa By Kelas Success'); 
+    }
 }

@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use App\Models\TenagaKependidikan;
 use App\Models\User;
-use Hash;
-use DB;
+use Illuminate\Support\Facades\Hash;
+use  Illuminate\Support\Facades\DB;
 use App\Http\Requests\TenagaKependidikanRequest;
 class TenagaKependidikanController extends BaseController
 {

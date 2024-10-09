@@ -106,6 +106,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/', 'KompetensiDasarController@index')->name('kompetensi_dasar.index');
             Route::get('/datatable', 'KompetensiDasarController@datatable')->name('kompetensi_dasar.datatable');
             Route::get('/create', 'KompetensiDasarController@create')->name('kompetensi_dasar.create');
+            Route::get('/edit/{params}', 'KompetensiDasarController@edit')->name('kompetensi_dasar.edit');
             Route::post('/store', 'KompetensiDasarController@store')->name('kompetensi_dasar.store');
             Route::get('/show/{params}', 'KompetensiDasarController@show')->name('kompetensi_dasar.show');
             Route::post('/update/{params}', 'KompetensiDasarController@update')->name('kompetensi_dasar.update');

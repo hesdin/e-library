@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\Jurnal;
 use App\Http\Requests\JurnalRequest;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

@@ -3,7 +3,7 @@
 <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        
+
         <div id="kt_content_container" class="container">
             <a class="btn btn-primary btn-sm mb-5" href="{{ route('kompetensi_dasar.create') }}">
                     Tambah Data
@@ -154,7 +154,7 @@
                         orderable: false,
                         render: function(data, type, full, meta) {
                             return `
-                                    <a href="javascript:;" data-uuid="${data}" class="btn btn-sm btn-clean btn-update btn-icon" data-kt-drawer-show="true" data-kt-drawer-target="#side_form">
+                                     <a href="/kompetensi-dasar/edit/${data}" class="btn btn-sm btn-clean btn-update btn-icon" data-kt-drawer-show="true" data-kt-drawer-target="#side_form">
                                         <i class="la la-edit text-success" style="font-size: 22px;"></i>
                                     </a>
                                     <button class="btn btn-sm btn-clean btn-delete btn-icon" data-uuid="${data}" data-type="destroy">
@@ -185,7 +185,7 @@
 
             // control.initDatatable('/master-spj/standar-harga/datatable', columns, columnDefs);
         }
-     
+
     $(function() {
         Datatable();
     })

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use App\Models\KompetensiDasar;
 use App\Http\Requests\KompetensiDasarRequest;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class KompetensiDasarController extends BaseController
 {
@@ -20,7 +20,7 @@ class KompetensiDasarController extends BaseController
             $data = DB::table('tb_kompetensi_dasar')
             ->join('tb_mata_pelajaran','tb_kompetensi_dasar.mata_pelajaran_id','=','tb_mata_pelajaran.id')
             ->select('tb_kompetensi_dasar.id','tb_kompetensi_dasar.uuid','tb_mata_pelajaran.mata_pelajaran','tb_kompetensi_dasar.kompetensi_inti','tb_kompetensi_dasar.kompetensi_dasar');
-            
+
             if (auth()->user()->role == 'guru') {
                 $data->where('tb_mata_pelajaran.tenaga_kependidikan_id',auth()->user()->tenaga_kependidikan_id);
             }
@@ -36,6 +36,25 @@ class KompetensiDasarController extends BaseController
         $mapel = DB::table('tb_mata_pelajaran')->get();
         $mapel_auth = DB::table("tb_mata_pelajaran")->where('tenaga_kependidikan_id',auth()->user()->tenaga_kependidikan_id)->first();
         return view('admin.master_pelajaran.kompetensi_dasar.create',compact('mapel','mapel_auth'));
+    }
+
+    public function edit($params)
+    {
+        try {
+            // Mengambil data kompetensi dasar berdasarkan UUID
+            $data = KompetensiDasar::where("uuid", $params)->firstOrFail();
+            // Mengambil semua mata pelajaran
+            $mapel = DB::table('tb_mata_pelajaran')->get();
+            // Mendapatkan mata pelajaran berdasarkan user yang sedang login
+            $mapel_auth = DB::table("tb_mata_pelajaran")
+            ->where('tenaga_kependidikan_id', auth()->user()->tenaga_kependidikan_id)
+                ->first();
+
+            // Mengirim data ke view
+            return view('admin.master_pelajaran.kompetensi_dasar.edit', compact('data', 'mapel', 'mapel_auth'));
+        } catch (\Throwable $th) {
+            return $this->sendError('Gagal', $th->getMessage(), 200);
+        }
     }
 
     public function store(KompetensiDasarRequest $request){

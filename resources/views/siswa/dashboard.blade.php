@@ -93,10 +93,7 @@
                   </div>
                   <!--end::User-->
                   <!--begin::Actions-->
-                  <div class="d-flex my-4">
-                    <a href="#" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
-                      data-bs-target="#kt_modal_offer_a_deal">Edit Profile</a>
-                  </div>
+                
                   <!--end::Actions-->
                 </div>
                 <!--end::Title-->

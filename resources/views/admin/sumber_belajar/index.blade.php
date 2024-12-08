@@ -113,7 +113,7 @@
                 orderable: false,
                 render: function(data, type, full, meta) {
                     return `
-                            <a href="javascript:;" data-uuid="${data}" class="btn btn-sm btn-clean btn-update btn-icon" data-kt-drawer-show="true" data-kt-drawer-target="#side_form">
+                            <a href="/sumber-belajar/edit/${data}" data-uuid="${data}" class="btn btn-sm btn-clean btn-update btn-icon" data-kt-drawer-show="true" data-kt-drawer-target="#side_form">
                                 <i class="la la-edit text-success" style="font-size: 22px;"></i>
                             </a>
                             <button class="btn btn-sm btn-clean btn-delete btn-icon" data-uuid="${data}" data-label="${full.topik}" data-type="destroy">

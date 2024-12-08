@@ -47,7 +47,7 @@
                       <tr class="fw-bolder fs-6 text-gray-800">
                         <th>No</th>
                         <th>NISN</th>
-                        <th>NIPD</th>
+                        <!-- <th>NIPD</th> -->
                         <th>Nama</th>
                         <th>Kelas</th>
                         <th>Aksi</th>
@@ -116,16 +116,10 @@
           <input type="hidden" name="uuid">
 
           <div class="row mb-10">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <label class="form-label">NISN</label>
               <input type="text" id="nisn" class="form-control" name="nisn" placeholder="Masukkan NISN">
               <small class="text-danger nisn_error"></small>
-            </div>
-
-            <div class="col-lg-6">
-              <label class="form-label">NIPD</label>
-              <input type="text" id="nipd" class="form-control" name="nipd" placeholder="Masukkan NIPD">
-              <small class="text-danger nipd_error"></small>
             </div>
           </div>
 
@@ -389,9 +383,6 @@
           render: function(data, type, row, meta) {
             return meta.row + meta.settings._iDisplayStart + 1;
           }
-        }, {
-          data: 'nisn',
-          className: 'text-right',
         }, {
           data: 'nisn',
           className: 'text-right',

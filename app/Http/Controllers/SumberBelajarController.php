@@ -56,4 +56,50 @@ class SumberBelajarController extends BaseController
         }
         return $this->sendResponse($data, 'Sumber Belajar Store Success');
     }
+
+    public function edit($params){
+        $topik = DB::table("tb_topik")->get();
+        $mapel = DB::table("tb_mata_pelajaran")->get();
+        $data = SumberBelajar::where('id',$params)->first();
+        return view('admin.sumber_belajar.edit',compact('topik','mapel','data'));
+    }
+
+    public function update(SumberBelajarRequest $request,$params){
+        $data = array();
+        try {
+
+            if (isset($request->file_url)) {
+                $file_dokumen = $request->file_url;
+                $filename = $file_dokumen->hashName();
+                $path_file_ebook = Storage::putFileAs('public/ebook', $file_dokumen, $filename);
+            }
+
+            $data = SumberBelajar::where('id',$params)->first();
+            $data->topik_id = $request->topik_id;
+            $data->mata_pelajaran_id = $request->mata_pelajaran_id;
+            $data->judul = $request->judul;
+            $data->tingkatan = $request->tingkatan;
+            $data->kategori = $request->kategori;
+            $data->youtube_url = $request->youtube_url;
+            $data->file_url = isset($request->file_url) ? '/storage/ebook/'.$filename : null;
+            $data->deskripsi = $request->deskripsi;
+            $data->save();
+        } catch (\Throwable $th) {
+            return $this->sendError('Gagal', $th->getMessage(), 200);
+        }
+        return $this->sendResponse($data, 'Sumber Belajar Store Success');
+    }
+
+    public function delete(Request $request, $params){
+        $data = array();
+        try {
+
+            $data = SumberBelajar::where("uuid",$params)->delete();
+
+        } catch (\Throwable $th) {
+            return $this->sendError('Gagal', $th->getMessage(), 200);
+        }
+        return $this->sendResponse($data, 'Sumber Belajara Delete Success');
+    }
+
 }

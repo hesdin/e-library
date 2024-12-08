@@ -42,17 +42,32 @@ class JurnalController extends BaseController
             ->where('tb_mata_pelajaran.tenaga_kependidikan_id', auth()->user()->tenaga_kependidikan_id)
             ->get();
 
-        // dd($kd);
 
         $mapel = DB::table("tb_mata_pelajaran")
             ->where('tenaga_kependidikan_id', auth()->user()->tenaga_kependidikan_id)
             ->get();
 
-        // dd($mapel);
-
         $kelas = DB::table("tb_kelas")->get();
 
         return view('admin.jurnal.create', compact('kd', 'kelas', 'mapel'));
+    }
+
+    public function edit($params){
+        $data = DB::table('tb_jurnal')->where('uuid',$params)->first();
+
+        $kd = DB::table('tb_kompetensi_dasar')
+            ->join('tb_mata_pelajaran', 'tb_kompetensi_dasar.mata_pelajaran_id', '=', 'tb_mata_pelajaran.id')
+            ->select('tb_kompetensi_dasar.id', 'kompetensi_inti')
+            ->where('tb_mata_pelajaran.tenaga_kependidikan_id', auth()->user()->tenaga_kependidikan_id)
+            ->get();
+
+        $mapel = DB::table("tb_mata_pelajaran")
+            ->where('tenaga_kependidikan_id', auth()->user()->tenaga_kependidikan_id)
+            ->get();
+
+        $kelas = DB::table("tb_kelas")->get();
+
+        return view('admin.jurnal.edit', compact('kd', 'kelas', 'mapel','data'));
     }
 
     public function store(JurnalRequest $request)
@@ -60,16 +75,54 @@ class JurnalController extends BaseController
         $data = array();
         try {
 
+            $count = array_count_values($request->status);
+
+            $hadir = $count['hadir'] ?? 0;
+            $tidakHadir = array_sum($count) - $hadir;
+
             $data = new Jurnal;
             $data->kompetensi_id = $request->kompetensi_id;
+            $data->mata_pelajaran_id = $request->mata_pelajaran_id;
             $data->kelas_id = $request->kelas_id;
             $data->materi = $request->materi;
             $data->hasil = $request->hasil;
-            $data->hadir = $request->hadir;
-            $data->tidak_hadir = $request->tidak_hadir;
+            $data->hadir = $hadir;
+            $data->tidak_hadir = $tidakHadir;
             $data->tanggal = $request->tanggal;
             $data->keterangan = $request->keterangan;
             $data->save();
+
+            foreach ($request->siswa_id as $key => $value) {
+                DB::table('tb_absensi_siswa')->insert([
+                    'mata_pelajaran_id' => $request->mata_pelajaran_id,
+                    'siswa_id' => $value,
+                    'tanggal' => $request->tanggal,
+                    'status' => $request->status[$key]
+                ]);
+            }
+            
+        } catch (\Throwable $th) {
+            return $this->sendError('Gagal', $th->getMessage(), 200);
+        }
+        return $this->sendResponse($data, 'Kompetensi Dasar Store Success');
+    }
+
+    public function update(JurnalRequest $request,$params)
+    {
+        $data = array();
+        try {
+
+            $data = Jurnal::where('id',$params)->first();
+            $data->kompetensi_id = $request->kompetensi_id;
+            $data->mata_pelajaran_id = $request->mata_pelajaran_id;
+            $data->kelas_id = $request->kelas_id;
+            $data->materi = $request->materi;
+            $data->hasil = $request->hasil;
+            $data->tanggal = $request->tanggal;
+            $data->keterangan = $request->keterangan;
+            $data->save();
+
+            
         } catch (\Throwable $th) {
             return $this->sendError('Gagal', $th->getMessage(), 200);
         }

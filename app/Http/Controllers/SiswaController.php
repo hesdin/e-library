@@ -35,7 +35,7 @@ class SiswaController extends BaseController
 
             $data = new Siswa;
             $data->kelas_id = $request->kelas_id;
-            $data->nipd = $request->nipd;
+            $data->nipd = '-';
             $data->nisn = $request->nisn;
             $data->nama = $request->nama;
             $data->username = $request->nisn;
@@ -74,7 +74,7 @@ class SiswaController extends BaseController
 
             $data = Siswa::where('uuid',$params)->first();
             $data->kelas_id = $request->kelas_id;
-            $data->nipd = $request->nipd;
+            $data->nipd = '-';
             $data->nisn = $request->nisn;
             $data->nama = $request->nama;
             $data->username = $request->nisn;

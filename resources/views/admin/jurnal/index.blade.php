@@ -193,7 +193,7 @@
                         orderable: false,
                         render: function(data, type, full, meta) {
                             return `
-                                    <a href="javascript:;" data-uuid="${data}" class="btn btn-sm btn-clean btn-update btn-icon" data-kt-drawer-show="true" data-kt-drawer-target="#side_form">
+                                    <a href="/jurnal/edit/${data}" class="btn btn-sm btn-clean btn-update btn-icon" data-kt-drawer-show="true" data-kt-drawer-target="#side_form">
                                         <i class="la la-edit text-success" style="font-size: 22px;"></i>
                                     </a>
                                     <button class="btn btn-sm btn-clean btn-delete btn-icon" data-uuid="${data}" data-type="destroy">
@@ -206,6 +206,7 @@
                 rowGroup: {
                     dataSrc: 'tanggal',
                     startRender: function(rows, group) {
+                        console.log(group);
                         let formattedString = group.replace(/_/g, ' ');
                         // Ubah semua huruf menjadi huruf besar
                         formattedString = formattedString.toUpperCase();
@@ -221,7 +222,7 @@
                                     .addClass('btn btn-primary btn-sm') // Button style
                                     .text('Cetak Jurnal') // Text for the button
                                     .on('click', function() {
-                                        window.open(`/jurnal/export?tanggal=2024-09-10`);
+                                        window.open(`/jurnal/export?tanggal=${group}`);
                                     })
                             )
                         )

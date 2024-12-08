@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Tambah Jurnal Harian</h3>
+                        <h3 class="card-title">Edit Jurnal Harian</h3>
                     </div>
                     <div class="card-body p-0">
                         <div class="container">
@@ -22,7 +22,7 @@
                                         data-control="select2" data-placeholder="Pilih Mata Pelajaran">
                                         <option></option>
                                         @foreach ($mapel as $val)
-                                            <option value="{{ $val->id }}">{{ $val->mata_pelajaran }}</option>
+                                            <option value="{{ $val->id }}" @if($val->id == $data->mata_pelajaran_id) selected @endif>{{ $val->mata_pelajaran }}</option>
                                         @endforeach
                                     </select>
                                     <small class="text-danger mata_pelajaran_id_error"></small>
@@ -34,7 +34,7 @@
                                         data-control="select2" data-placeholder="Pilih Kompetensi">
                                         <option></option>
                                         @foreach ($kd as $val)
-                                            <option value="{{ $val->id }}">{{ strip_tags($val->kompetensi_inti) }}</option>
+                                            <option value="{{ $val->id }}" @if($val->id == $data->kompetensi_id) selected @endif>{{ strip_tags($val->kompetensi_inti) }}</option>
                                         @endforeach
                                     </select>
                                     <small class="text-danger kompetensi_id_error"></small>
@@ -47,7 +47,7 @@
                                         data-control="select2" data-placeholder="Pilih Kelas">
                                         <option></option>
                                         @foreach ($kelas as $kelass)
-                                            <option value="{{ $kelass->id }}">{{ $kelass->kelas }}</option>
+                                            <option value="{{ $kelass->id }}" @if($kelass->id == $data->kelas_id) selected @endif>{{ $kelass->kelas }}</option>
                                         @endforeach
                                     </select>
                                     <small class="text-danger kelas_id_error"></small>
@@ -56,7 +56,7 @@
                                     <div class="mb-10">
                                         <label class="form-label">Materi</label>
                                         <textarea name="materi" id="materi" placeholder="Masukkan Materi Inti">
-                                     
+                                            {{$data->materi}}
                                         </textarea>
                                         <small class="text-danger materi_error"></small>        
                                     </div>
@@ -64,7 +64,7 @@
                                     <div class="mb-10">
                                         <label class="form-label">Hasil</label>
                                         <textarea name="hasil" id="hasil" placeholder="Masukkan Hasil">
-                                     
+                                        {{$data->hasil}}
                                         </textarea>
                                         <small class="text-danger hasil_error"></small>        
                                     </div>
@@ -85,28 +85,15 @@
                                     <div class="row mb-10">
                                         <div class="col-lg-6">
                                             <label class="form-label">Tanggal</label>
-                                            <input type="date" id="tanggal" class="form-control" name="tanggal">
+                                            <input type="date" id="tanggal" class="form-control" value="{{$data->tanggal}}" name="tanggal">
                                             <small class="text-danger tanggal_error"></small>
                                         </div>
                                         <div class="col-lg-6">
                                             <label class="form-label">Keterangan</label>
-                                            <input type="text" id="keterangan" class="form-control" name="keterangan" placeholder="Masukkan Keterangan">
+                                            <input type="text" id="keterangan" class="form-control" value="{{$data->keterangan}}" name="keterangan" placeholder="Masukkan Keterangan">
                                             <small class="text-danger keterangan_error"></small>
                                         </div>
                                     </div>
-
-                                    <table class="table table-striped gy-7 gs-7" id="tb_absen">
-                                        <thead>
-                                            <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                                                <th>No</th>
-                                                <th>Nama Siswa</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
 
                                     <div class="separator separator-dashed mt-8 mb-5"></div>
                                     <div class="d-flex justify-content-center gap-5">
@@ -208,7 +195,7 @@
 
             $.ajax({
             type: 'POST',
-            url: '{{ route("jurnal.store") }}',
+            url: '/jurnal/update/{{$data->id}}',
             data: new FormData($(".form-data")[0]),
             contentType: false,
             processData: false,
@@ -217,7 +204,7 @@
                 if (response.success == true) {
                 swal
                     .fire({
-                    text: `Jurnal berhasil di Tambahkan`,
+                    text: `Jurnal berhasil di Update`,
                     icon: "success",
                     showConfirmButton: false,
                     timer: 1500,

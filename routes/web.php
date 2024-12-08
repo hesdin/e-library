@@ -91,6 +91,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/datatable', 'SumberBelajarController@datatable')->name('sumber_belajar.datatable');
             Route::get('/create', 'SumberBelajarController@create')->name('sumber_belajar.create');
             Route::post('/store', 'SumberBelajarController@store')->name('sumber_belajar.store');
+            Route::get('/edit/{params}', 'SumberBelajarController@edit')->name('sumber_belajar.edit');
+            Route::post('/update/{params}', 'SumberBelajarController@update')->name('sumber_belajar.update');
+            Route::delete('/delete/{params}', 'SumberBelajarController@delete')->name('sumber_belajar.delete');
         });
 
         Route::prefix('mata-pelajaran')->group(function () {
@@ -108,9 +111,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/create', 'KompetensiDasarController@create')->name('kompetensi_dasar.create');
             Route::get('/edit/{params}', 'KompetensiDasarController@edit')->name('kompetensi_dasar.edit');
             Route::post('/store', 'KompetensiDasarController@store')->name('kompetensi_dasar.store');
-            Route::get('/show/{params}', 'KompetensiDasarController@show')->name('kompetensi_dasar.show');
+            Route::get('/edit/{params}', 'KompetensiDasarController@edit')->name('kompetensi_dasar.edit');
             Route::post('/update/{params}', 'KompetensiDasarController@update')->name('kompetensi_dasar.update');
             Route::delete('/delete/{params}', 'KompetensiDasarController@delete')->name('kompetensi_dasar.delete');
+        });
+
+        Route::prefix('absensi')->group(function () {
+            Route::get('/', 'AbsensiController@index')->name('absensi.index');
+            Route::get('/datatable', 'AbsensiController@datatable')->name('absensi.datatable');
         });
 
         Route::prefix('jurnal')->group(function () {
@@ -118,7 +126,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/datatable', 'JurnalController@datatable')->name('jurnal.datatable');
             Route::get('/create', 'JurnalController@create')->name('jurnal.create');
             Route::post('/store', 'JurnalController@store')->name('jurnal.store');
-            Route::get('/show/{params}', 'JurnalController@show')->name('jurnal.show');
+            Route::get('/edit/{params}', 'JurnalController@edit')->name('jurnal.edit');
             Route::post('/update/{params}', 'JurnalController@update')->name('jurnal.update');
             Route::delete('/delete/{params}', 'JurnalController@delete')->name('jurnal.delete');
             Route::get('/export', 'JurnalController@export')->name('jurnal.export');

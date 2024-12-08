@@ -23,7 +23,6 @@ class SiswaRequest extends FormRequest
     {
         return [
             'kelas_id' => 'required',
-            'nipd' => 'required',
             'nisn' => 'required',
             'nama' => 'required',
             'jenis_kelamin' => 'required',
@@ -41,7 +40,6 @@ class SiswaRequest extends FormRequest
     {
            return [
                 'kelas_id.required' => 'kolom kelas tidak boleh kosong.',
-                'nipd.required' => 'kolom nipd tidak boleh kosong.',
                 'nama.required' => 'kolom nipd tidak boleh kosong.',
                 'nisn.required' => 'kolom nisn tidak boleh kosong.',
                 'jenis_kelamin.required' => 'kolom jenis kelamin tidak boleh kosong.',

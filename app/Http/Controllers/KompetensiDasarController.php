@@ -73,6 +73,14 @@ class KompetensiDasarController extends BaseController
         return $this->sendResponse($data, 'Kompetensi Dasar Store Success');
     }
 
+    public function edit($params){
+        $mapel = DB::table('tb_mata_pelajaran')->get();
+        $mapel_auth = DB::table("tb_mata_pelajaran")->where('tenaga_kependidikan_id',auth()->user()->tenaga_kependidikan_id)->first();
+        $data = DB::table('tb_kompetensi_dasar')->where('uuid',$params)->first();
+
+        return view('admin.master_pelajaran.kompetensi_dasar.edit',compact('mapel','mapel_auth','data'));
+    }
+
     public function update(KompetensiDasarRequest $request, $params){
         $data = array();
         try {

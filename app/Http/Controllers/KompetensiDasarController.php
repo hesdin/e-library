@@ -38,24 +38,6 @@ class KompetensiDasarController extends BaseController
         return view('admin.master_pelajaran.kompetensi_dasar.create',compact('mapel','mapel_auth'));
     }
 
-    public function edit($params)
-    {
-        try {
-            // Mengambil data kompetensi dasar berdasarkan UUID
-            $data = KompetensiDasar::where("uuid", $params)->firstOrFail();
-            // Mengambil semua mata pelajaran
-            $mapel = DB::table('tb_mata_pelajaran')->get();
-            // Mendapatkan mata pelajaran berdasarkan user yang sedang login
-            $mapel_auth = DB::table("tb_mata_pelajaran")
-            ->where('tenaga_kependidikan_id', auth()->user()->tenaga_kependidikan_id)
-                ->first();
-
-            // Mengirim data ke view
-            return view('admin.master_pelajaran.kompetensi_dasar.edit', compact('data', 'mapel', 'mapel_auth'));
-        } catch (\Throwable $th) {
-            return $this->sendError('Gagal', $th->getMessage(), 200);
-        }
-    }
 
     public function store(KompetensiDasarRequest $request){
         $data = array();

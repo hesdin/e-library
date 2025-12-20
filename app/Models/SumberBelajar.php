@@ -14,4 +14,9 @@ class SumberBelajar extends Model
     {
         return $this->belongsTo(MataPelajaran::class, 'mata_pelajaran_id');
     }
+
+    public function topik()
+    {
+        return $this->belongsTo(Topik::class, 'topik_id');
+    }
 }

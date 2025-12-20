@@ -28,7 +28,7 @@ class AuthController extends BaseController
             return redirect()->route('siswa.dashboard');
         }
 
-        return redirect()->to('login')
+        return redirect()->route('login')
                 ->withErrors(trans('auth'));
     }
 
@@ -39,12 +39,12 @@ class AuthController extends BaseController
 
         if (Auth::guard('siswa')) {
             Auth::guard('siswa')->logout();
-            return redirect('login');
+            return redirect()->route('login');
         }
 
         if (Auth::guard('web')->check()) {
             Auth::guard('web')->logout();
-            return redirect('login');
+            return redirect()->route('login');
         }
 
 
@@ -52,6 +52,6 @@ class AuthController extends BaseController
 
         $request->session()->regenerateToken();
 
-        return redirect('login');
+        return redirect()->route('login');
     }
 }

@@ -72,6 +72,9 @@
                 {{-- <img src="{{ $thumbnailUrl }}" alt="YouTube Thumbnail"> --}}
 
 
+                @php
+                  $videoOpenUrl = $video->youtube_url ?: route('koleksi.open', $video->id);
+                @endphp
                 <!--begin::Col-->
                 <div class="col-md-4">
                   <!--begin::Feature post-->
@@ -79,7 +82,7 @@
                     <!--begin::Image-->
                     <a class="d-block bgi-no-repeat bgi-size-cover bgi-position-center card-rounded position-relative min-h-175px mb-5"
                       style="background-image:url('{{ $thumbnailUrl }}')" data-fslightbox="lightbox-video-tutorials"
-                      href="{{ $video->youtube_url }}">
+                      href="{{ $videoOpenUrl }}">
                       <img src="{{ asset('assets/media/svg/misc/video-play.svg') }}"
                         class="position-absolute top-50 start-50 translate-middle" alt="">
                     </a>
@@ -143,7 +146,7 @@
                   <!--begin::Hot sales post-->
                   <div class="card-xl-stretch me-md-6">
                     <!--begin::Overlay-->
-                    <a class="d-block overlay iframe" href="{{ asset($ebook->file_url) }}">
+                    <a class="d-block overlay iframe" href="{{ route('koleksi.open', $ebook->id) }}">
                       <!--begin::Image-->
                       {{-- <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-375px" style="background-image:url(https://storage.googleapis.com/gcp-depo/demosiplah/IP/02MBBS0901.png)"></div> --}}
                       <!--end::Image-->

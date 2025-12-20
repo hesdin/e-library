@@ -9,4 +9,9 @@ class Topik extends Model
 {
     use HasFactory;
     protected $table = 'tb_topik';
+
+    public function sumberBelajar()
+    {
+        return $this->hasMany(SumberBelajar::class, 'topik_id');
+    }
 }

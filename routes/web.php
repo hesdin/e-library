@@ -5,6 +5,7 @@
 // use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ImportSiswaController;
 use App\Http\Controllers\ImportTenagaKependidikanController;
 use App\Http\Controllers\LibrarySiswaController;
@@ -21,22 +22,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
-
-// Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-//
-
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
-    Route::get('/', function () {
-        if (auth()->check()) {
-            return redirect()->back();
-        }
-        return redirect()->route('login');
-    });
+    // Frontend Public Routes
+    Route::get('/', [FrontendController::class, 'home'])->name('home');
+    Route::get('/kategori', [FrontendController::class, 'kategori'])->name('kategori');
+    Route::get('/kategori/{topik}', [FrontendController::class, 'kategoriShow'])->name('kategori.show');
+    Route::get('/koleksi', [FrontendController::class, 'koleksi'])->name('koleksi');
+    Route::get('/koleksi/{sumberBelajar}', [FrontendController::class, 'koleksiShow'])->name('koleksi.show');
+    Route::get('/koleksi/{sumberBelajar}/buka', [FrontendController::class, 'koleksiOpen'])->name('koleksi.open');
+    Route::get('/rilis', [FrontendController::class, 'rilis'])->name('rilis');
+    Route::get('/fitur', [FrontendController::class, 'fitur'])->name('fitur');
+    Route::get('/testimoni', [FrontendController::class, 'testimoni'])->name('testimoni');
+    Route::get('/bantuan', [FrontendController::class, 'bantuan'])->name('bantuan');
 
-    Route::prefix('login')->middleware(['authcheck'])->group(function () {
+    // Legacy route alias for backward compatibility
+    Route::get('/landing', function () {
+        return redirect()->route('home');
+    })->name('landing');
+
+    Route::prefix('panel')->middleware(['authcheck'])->group(function () {
         Route::get('/', 'AuthController@loginPage')->name('login');
         Route::post('/', 'AuthController@login')->name('login.post');
     });

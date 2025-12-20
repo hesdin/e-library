@@ -80,8 +80,8 @@ class SumberBelajarController extends BaseController
             $data->judul = $request->judul;
             $data->tingkatan = $request->tingkatan;
             $data->kategori = $request->kategori;
-            $data->youtube_url = $request->youtube_url;
-            $data->file_url = isset($request->file_url) ? '/storage/ebook/'.$filename : null;
+            $data->youtube_url = $request->youtube_url ?? $data->youtube_url;
+            $data->file_url = isset($request->file_url) ? '/storage/ebook/'.$filename : $data->file_url;
             $data->deskripsi = $request->deskripsi;
             $data->save();
         } catch (\Throwable $th) {

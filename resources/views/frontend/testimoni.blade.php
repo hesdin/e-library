@@ -10,7 +10,7 @@
 
     <div class="page-header" style="text-align: center; max-width: 700px; margin: 0 auto 48px;">
       <h1>Kata Mereka</h1>
-      <p>Cerita dari siswa dan guru yang memanfaatkan E-Library Sulsel dalam pembelajaran.</p>
+      <p>Cerita dari siswa dan guru yang memanfaatkan E-Library Smart School dalam pembelajaran.</p>
     </div>
 
     <div class="testimonial-grid">

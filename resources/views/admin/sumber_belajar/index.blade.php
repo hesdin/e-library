@@ -20,6 +20,7 @@
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th>No</th>
                                             <th>Judul</th>
+                                            <th>Thumbnail</th>
                                             <th>Topik</th>
                                             <th>Mata Pelajaran</th>
                                             <th>Kategori</th>
@@ -72,6 +73,15 @@
                 data: 'judul',
                 className : 'text-right',
             }, {
+                data: 'thumb_img',
+                className : 'text-center',
+                render: function(data, type, row, meta) {
+                    if (data) {
+                        return `<img src="${data}" alt="Thumbnail" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">`;
+                    }
+                    return `<span class="text-muted">-</span>`;
+                }
+            }, {
                 data: 'topik',
                 className : 'text-right',
             }, {
@@ -116,7 +126,7 @@
                             <a href="/sumber-belajar/edit/${data}" data-uuid="${data}" class="btn btn-sm btn-clean btn-update btn-icon" data-kt-drawer-show="true" data-kt-drawer-target="#side_form">
                                 <i class="la la-edit text-success" style="font-size: 22px;"></i>
                             </a>
-                            <button class="btn btn-sm btn-clean btn-delete btn-icon" data-uuid="${data}" data-label="${full.topik}" data-type="destroy">
+                            <button class="btn btn-sm btn-clean btn-delete btn-icon" data-id="${data}" data-label="${full.judul}" data-type="destroy">
                                 <i class="la la-trash text-danger" style="font-size: 22px;"></i>
                             </button>
                             `;
@@ -133,6 +143,48 @@
      
     $(function() {
             initDatatable();
-        })
+        });
+
+    $(document).on("click", ".btn-delete", function () {
+        const id = $(this).data("id");
+        const label = $(this).data("label") || "data ini";
+        Swal.fire({
+            title: "Hapus data?",
+            text: `Anda yakin ingin menghapus ${label}?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Ya, hapus",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (!result.isConfirmed) return;
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            });
+            $.ajax({
+                type: "DELETE",
+                url: "{{ url('/sumber-belajar/delete') }}/" + id,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire("Berhasil", "Data berhasil dihapus.", "success");
+                        if ($.fn.DataTable.isDataTable("#kt_table_data")) {
+                            $("#kt_table_data").DataTable().ajax.reload(null, false);
+                        } else {
+                            initDatatable();
+                        }
+                    } else {
+                        Swal.fire("Gagal", response.message || "Gagal menghapus data.", "warning");
+                    }
+                },
+                error: function (xhr) {
+                    const message = xhr.responseJSON && xhr.responseJSON.message
+                        ? xhr.responseJSON.message
+                        : "Gagal menghapus data.";
+                    Swal.fire("Gagal", message, "warning");
+                },
+            });
+        });
+    });
 </script>
 @endsection

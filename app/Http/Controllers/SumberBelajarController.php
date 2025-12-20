@@ -14,7 +14,7 @@ class SumberBelajarController extends BaseController
     public function datatable(){
         $data = array();
         try {
-            $data = DB::table('tb_sumber_belajar')->join('tb_topik','tb_sumber_belajar.topik_id','=','tb_topik.id')->join('tb_mata_pelajaran','tb_sumber_belajar.mata_pelajaran_id','=','tb_mata_pelajaran.id')->select('tb_sumber_belajar.id','tb_sumber_belajar.judul','tb_sumber_belajar.kategori','tb_sumber_belajar.youtube_url','tb_sumber_belajar.file_url','tb_sumber_belajar.deskripsi','tb_topik.topik','tb_mata_pelajaran.mata_pelajaran')->orderBy('tb_sumber_belajar.created_at','ASC')->get();
+            $data = DB::table('tb_sumber_belajar')->join('tb_topik','tb_sumber_belajar.topik_id','=','tb_topik.id')->join('tb_mata_pelajaran','tb_sumber_belajar.mata_pelajaran_id','=','tb_mata_pelajaran.id')->select('tb_sumber_belajar.id','tb_sumber_belajar.judul','tb_sumber_belajar.kategori','tb_sumber_belajar.youtube_url','tb_sumber_belajar.file_url','tb_sumber_belajar.thumb_img','tb_sumber_belajar.deskripsi','tb_topik.topik','tb_mata_pelajaran.mata_pelajaran')->orderBy('tb_sumber_belajar.created_at','ASC')->get();
         } catch (\Throwable $th) {
             return $this->sendError('Gagal', $th->getMessage(), 200);
         }
@@ -35,10 +35,16 @@ class SumberBelajarController extends BaseController
         $data = array();
         try {
 
-            if (isset($request->file_url)) {
-                $file_dokumen = $request->file_url;
+            if ($request->hasFile('file_url')) {
+                $file_dokumen = $request->file('file_url');
                 $filename = $file_dokumen->hashName();
                 $path_file_ebook = Storage::putFileAs('public/ebook', $file_dokumen, $filename);
+            }
+
+            if ($request->hasFile('thumb_img')) {
+                $thumb_file = $request->file('thumb_img');
+                $thumb_filename = $thumb_file->hashName();
+                $path_thumb = Storage::putFileAs('public/sumber_belajar/thumb', $thumb_file, $thumb_filename);
             }
 
             $data = new SumberBelajar;
@@ -48,7 +54,8 @@ class SumberBelajarController extends BaseController
             $data->tingkatan = $request->tingkatan;
             $data->kategori = $request->kategori;
             $data->youtube_url = $request->youtube_url;
-            $data->file_url = isset($request->file_url) ? '/storage/ebook/'.$filename : null;
+            $data->file_url = $request->hasFile('file_url') ? '/storage/ebook/'.$filename : null;
+            $data->thumb_img = $request->hasFile('thumb_img') ? '/storage/sumber_belajar/thumb/'.$thumb_filename : null;
             $data->deskripsi = $request->deskripsi;
             $data->save();
         } catch (\Throwable $th) {
@@ -68,10 +75,16 @@ class SumberBelajarController extends BaseController
         $data = array();
         try {
 
-            if (isset($request->file_url)) {
-                $file_dokumen = $request->file_url;
+            if ($request->hasFile('file_url')) {
+                $file_dokumen = $request->file('file_url');
                 $filename = $file_dokumen->hashName();
                 $path_file_ebook = Storage::putFileAs('public/ebook', $file_dokumen, $filename);
+            }
+
+            if ($request->hasFile('thumb_img')) {
+                $thumb_file = $request->file('thumb_img');
+                $thumb_filename = $thumb_file->hashName();
+                $path_thumb = Storage::putFileAs('public/sumber_belajar/thumb', $thumb_file, $thumb_filename);
             }
 
             $data = SumberBelajar::where('id',$params)->first();
@@ -81,7 +94,8 @@ class SumberBelajarController extends BaseController
             $data->tingkatan = $request->tingkatan;
             $data->kategori = $request->kategori;
             $data->youtube_url = $request->youtube_url ?? $data->youtube_url;
-            $data->file_url = isset($request->file_url) ? '/storage/ebook/'.$filename : $data->file_url;
+            $data->file_url = $request->hasFile('file_url') ? '/storage/ebook/'.$filename : $data->file_url;
+            $data->thumb_img = $request->hasFile('thumb_img') ? '/storage/sumber_belajar/thumb/'.$thumb_filename : $data->thumb_img;
             $data->deskripsi = $request->deskripsi;
             $data->save();
         } catch (\Throwable $th) {
@@ -94,7 +108,7 @@ class SumberBelajarController extends BaseController
         $data = array();
         try {
 
-            $data = SumberBelajar::where("uuid",$params)->delete();
+            $data = SumberBelajar::where("id",$params)->delete();
 
         } catch (\Throwable $th) {
             return $this->sendError('Gagal', $th->getMessage(), 200);

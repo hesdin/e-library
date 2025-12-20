@@ -4,7 +4,7 @@
       <div class="footer-brand">
         <div class="brand-mark">EL</div>
         <div>
-          <div class="footer-title">E-Library Sulsel</div>
+          <div class="footer-title">E-Library Smart School</div>
           <div class="footer-sub">Perpustakaan digital resmi untuk siswa di Sulawesi Selatan.</div>
         </div>
       </div>
@@ -25,7 +25,7 @@
       <div class="footer-heading">Informasi</div>
       <div class="footer-links">
         <a href="{{ route('fitur') }}">Fitur</a>
-        <a href="{{ route('testimoni') }}">Testimoni</a>
+        {{-- <a href="{{ route('testimoni') }}">Testimoni</a> --}}
         <a href="{{ route('bantuan') }}">Bantuan & FAQ</a>
       </div>
     </div>
@@ -34,7 +34,7 @@
       <div class="footer-links">
         <span>Jl. Perintis Kemerdekaan KM.10</span>
         <span>Makassar, Sulawesi Selatan</span>
-        <span>info@disdik-sulsel.go.id</span>
+        <span>info@disdik-Smart School.go.id</span>
       </div>
     </div>
   </div>

@@ -12,6 +12,39 @@
         'linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%)',
         'linear-gradient(135deg, #fb7185 0%, #f59e0b 100%)',
     ];
+
+    $thumbnailFor = function ($koleksi) {
+        if (!empty($koleksi->thumb_img)) {
+            $thumb = $koleksi->thumb_img;
+            return \Illuminate\Support\Str::startsWith($thumb, ['http://', 'https://']) ? $thumb : asset($thumb);
+        }
+
+        if ($koleksi->kategori === 'video' && !empty($koleksi->youtube_url)) {
+            $url = $koleksi->youtube_url;
+            parse_str(parse_url($url, PHP_URL_QUERY) ?? '', $query);
+            $videoId = $query['v'] ?? null;
+
+            if (!$videoId) {
+                $host = parse_url($url, PHP_URL_HOST);
+                $path = parse_url($url, PHP_URL_PATH);
+
+                if ($host && \Illuminate\Support\Str::contains($host, 'youtu.be')) {
+                    $videoId = ltrim($path ?? '', '/');
+                } elseif ($path) {
+                    $parts = array_values(array_filter(explode('/', $path)));
+                    if (isset($parts[0], $parts[1]) && $parts[0] === 'embed') {
+                        $videoId = $parts[1];
+                    } elseif (isset($parts[0], $parts[1]) && $parts[0] === 'shorts') {
+                        $videoId = $parts[1];
+                    }
+                }
+            }
+
+            return $videoId ? "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg" : null;
+        }
+
+        return null;
+    };
   @endphp
 
   <main class="page">
@@ -21,7 +54,7 @@
 
     <div class="page-header">
       <h1>Koleksi Materi</h1>
-      <p>Jelajahi semua sumber belajar yang tersedia di E-Library Sulsel.</p>
+      <p>Jelajahi semua sumber belajar yang tersedia di E-Library Smart School.</p>
     </div>
 
     <!-- Search & Filter -->
@@ -41,6 +74,7 @@
           @endforeach
         </select>
         <button type="submit" class="btn primary">Filter</button>
+        <a class="btn ghost" href="{{ route('koleksi') }}">Reset</a>
       </form>
     </div>
 
@@ -54,10 +88,17 @@
     <div class="grid-3">
       @forelse ($materi as $koleksi)
         <article class="card collection-card">
-          <div class="cover" style="background: {{ $coverGradients[$loop->index % count($coverGradients)] }};"></div>
+          @php
+            $thumb = $thumbnailFor($koleksi);
+          @endphp
+          <div class="cover" style="--cover: {{ $coverGradients[$loop->index % count($coverGradients)] }};">
+            @if ($thumb)
+              <img src="{{ $thumb }}" alt="Thumbnail {{ $koleksi->judul }}" loading="lazy">
+            @endif
+          </div>
           <div class="collection-body">
             <h3>{{ $koleksi->judul }}</h3>
-            <p>{{ \Illuminate\Support\Str::limit($koleksi->deskripsi, 80) }}</p>
+            <p>{{ \Illuminate\Support\Str::limit(strip_tags($koleksi->deskripsi), 80) }}</p>
           </div>
           <div class="collection-meta">
             <span>{{ $koleksi->mataPelajaran?->mata_pelajaran ?? 'Umum' }}</span>
@@ -92,7 +133,8 @@
       background: var(--surface);
       border-radius: 16px;
       padding: 16px 20px;
-      margin-bottom: 24px;
+      margin-top: 12px;
+      margin-bottom: 32px;
       border: 1px solid var(--border);
     }
 
@@ -124,12 +166,24 @@
     .cover {
       height: 140px;
       border-radius: 16px;
+      background: var(--cover, var(--surface-soft));
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .collection-card {
       display: flex;
       flex-direction: column;
       gap: 12px;
+      margin-top: 24px;
     }
 
     .collection-body h3 {

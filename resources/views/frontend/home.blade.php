@@ -18,7 +18,7 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-copy">
-        <span class="eyebrow">Perpustakaan Digital Sulsel</span>
+        <span class="eyebrow">Perpustakaan Digital Smart School</span>
         <h1>Temukan dan Baca Sumber Belajar Favoritmu.</h1>
         <p>
           Akses koleksi ebook dan video pembelajaran untuk seluruh siswa di Sulawesi Selatan.

@@ -10,7 +10,7 @@
 
     <div class="page-header">
       <h1>Kategori Pembelajaran</h1>
-      <p>Jelajahi berbagai topik pembelajaran yang tersedia di E-Library Sulsel.</p>
+      <p>Jelajahi berbagai topik pembelajaran yang tersedia di E-Library Smart School.</p>
     </div>
 
     <div class="grid-3">

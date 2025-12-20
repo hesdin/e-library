@@ -519,7 +519,7 @@
         <div class="brand">
           <div class="brand-mark">EL</div>
           <div>
-            <span class="brand-title">E-Library Sulsel</span>
+            <span class="brand-title">E-Library Smart School</span>
             <span class="brand-sub">Dinas Pendidikan Provinsi Sulawesi Selatan</span>
           </div>
         </div>
@@ -605,7 +605,7 @@
           </div>
           <div class="meta-card">
             <div class="meta-label">Sumber</div>
-            <div class="meta-value">E-Library Sulsel</div>
+            <div class="meta-value">E-Library Smart School</div>
           </div>
         </div>
 
@@ -664,7 +664,7 @@
     @endif
 
     <footer class="footer">
-      E-Library Sulsel - Perpustakaan digital resmi untuk siswa di Sulawesi Selatan.
+      E-Library Smart School - Perpustakaan digital resmi untuk siswa di Sulawesi Selatan.
       <div style="margin-top: 8px; font-size: 11px;">&copy; {{ date('Y') }} Dinas Pendidikan Provinsi Sulawesi
         Selatan.</div>
     </footer>

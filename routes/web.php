@@ -33,7 +33,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/koleksi/{sumberBelajar}/buka', [FrontendController::class, 'koleksiOpen'])->name('koleksi.open');
     Route::get('/rilis', [FrontendController::class, 'rilis'])->name('rilis');
     Route::get('/fitur', [FrontendController::class, 'fitur'])->name('fitur');
-    Route::get('/testimoni', [FrontendController::class, 'testimoni'])->name('testimoni');
+    // Route::get('/testimoni', [FrontendController::class, 'testimoni'])->name('testimoni');
     Route::get('/bantuan', [FrontendController::class, 'bantuan'])->name('bantuan');
 
     // Legacy route alias for backward compatibility

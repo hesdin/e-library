@@ -29,6 +29,7 @@ class SumberBelajarRequest extends FormRequest
             'kategori' => 'required',
             'youtube_url' => 'nullable',
             'file_url' => 'nullable',
+            'thumb_img' => 'nullable|image|mimes:jpg,jpeg,png,webp',
             'deskripsi' => 'required'
         ];
     }

@@ -12,16 +12,17 @@
     rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f7ff;
+      --bg: #f7f9fc;
       --ink: #0f172a;
       --muted: #475569;
       --primary: #1d4ed8;
       --primary-dark: #1e3a8a;
       --accent: #f59e0b;
       --surface: #ffffff;
-      --surface-soft: #eef3ff;
-      --border: rgba(15, 23, 42, 0.08);
-      --shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
+      --surface-soft: #f1f5fb;
+      --border: rgba(15, 23, 42, 0.06);
+      --shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
+      --shadow-soft: 0 12px 24px rgba(15, 23, 42, 0.08);
       --ebook-color: #3b82f6;
       --video-color: #ef4444;
     }
@@ -38,9 +39,8 @@
       margin: 0;
       font-family: "Plus Jakarta Sans", sans-serif;
       color: var(--ink);
-      background: radial-gradient(520px 220px at 10% 12%, #e0f2fe 0%, transparent 60%),
-        radial-gradient(420px 240px at 90% 2%, #fef3c7 0%, transparent 55%),
-        var(--bg);
+      background: radial-gradient(600px 280px at 8% 0%, rgba(59, 130, 246, 0.12) 0%, transparent 60%),
+        linear-gradient(180deg, #f7f9fc 0%, #eef2ff 100%);
       min-height: 100vh;
     }
 
@@ -57,7 +57,7 @@
       position: sticky;
       top: 0;
       z-index: 200;
-      background: rgba(244, 247, 255, 0.92);
+      background: rgba(247, 249, 252, 0.92);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       transition: box-shadow 0.3s ease;
@@ -277,7 +277,7 @@
     .btn.primary {
       background: var(--primary);
       color: #fff;
-      box-shadow: 0 16px 30px rgba(29, 78, 216, 0.25);
+      box-shadow: 0 10px 20px rgba(29, 78, 216, 0.2);
     }
 
     .btn.primary:hover {
@@ -353,7 +353,7 @@
       border-radius: 999px;
       padding: 6px 8px 6px 18px;
       border: 1px solid var(--border);
-      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow-soft);
     }
 
     .search input {
@@ -411,24 +411,70 @@
 
     .hero-card {
       position: relative;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(239, 246, 255, 0.95));
+      background: linear-gradient(180deg, #ffffff 0%, #f1f5ff 100%);
       border-radius: 28px;
       padding: 26px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 28px 60px rgba(15, 23, 42, 0.14);
       overflow: hidden;
-      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(120px 120px at 15% 15%, rgba(59, 130, 246, 0.12), transparent 60%),
+        radial-gradient(160px 160px at 80% 20%, rgba(16, 185, 129, 0.12), transparent 60%);
+      opacity: 0.8;
+      pointer-events: none;
     }
 
     .hero-card::after {
       content: "";
       position: absolute;
-      top: -60px;
-      right: -60px;
-      width: 180px;
-      height: 180px;
+      top: -40px;
+      right: -40px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(29, 78, 216, 0.18), rgba(29, 78, 216, 0.02));
+      background: radial-gradient(circle at 30% 30%, rgba(29, 78, 216, 0.12), rgba(29, 78, 216, 0.02));
+    }
+
+    .hero-card>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .hero-card-visual {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(14, 165, 233, 0.08));
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .hero-illustration {
+      width: 100%;
+      height: 160px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(140px 80px at 50% 30%, rgba(99, 102, 241, 0.18), transparent 70%),
+        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    }
+
+    .hero-illustration svg {
+      width: min(260px, 100%);
+      height: auto;
+      display: block;
     }
 
     .hero-icon {
@@ -443,10 +489,23 @@
       font-weight: 700;
       font-family: "Space Grotesk", sans-serif;
       letter-spacing: 1px;
+      box-shadow: 0 12px 24px rgba(29, 78, 216, 0.25);
+    }
+
+    .hero-card-badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--muted);
+      border: 1px solid rgba(15, 23, 42, 0.08);
     }
 
     .hero-stat {
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
     .hero-stat-value {
@@ -459,18 +518,53 @@
       font-size: 14px;
     }
 
-    .metric-grid {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+    .hero-card-divider {
+      height: 1px;
+      background: rgba(15, 23, 42, 0.08);
+      margin: 18px 0 12px;
     }
 
-    .metric-card {
-      background: var(--surface);
-      border-radius: 14px;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 24px;
+    }
+
+    .metric-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 6px 0 12px;
+      position: relative;
+    }
+
+    .metric-item::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.16), rgba(15, 23, 42, 0.04), transparent);
+    }
+
+    .metric-item:nth-last-child(-n + 2)::after {
+      display: none;
+    }
+
+    .metric-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--metric-color, var(--primary));
+      box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.04);
     }
 
     .metric-label {
@@ -481,9 +575,28 @@
     }
 
     .metric-value {
-      margin-top: 4px;
       font-weight: 700;
       font-size: 16px;
+      color: var(--ink);
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+    }
+
+    .metric-item.ebook {
+      --metric-color: var(--ebook-color);
+    }
+
+    .metric-item.video {
+      --metric-color: var(--video-color);
+    }
+
+    .metric-item.topik {
+      --metric-color: #0ea5e9;
+    }
+
+    .metric-item.mapel {
+      --metric-color: #10b981;
     }
 
     .section {
@@ -565,7 +678,7 @@
       border-radius: 22px;
       padding: 16px;
       border: 1px solid var(--border);
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow-soft);
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -573,13 +686,24 @@
     }
 
     .collection-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 24px 40px rgba(15, 23, 42, 0.14);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
     }
 
     .cover {
       height: 180px;
       border-radius: 16px;
+      background: var(--cover, var(--surface-soft));
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .collection-body h3 {
@@ -651,7 +775,7 @@
       border-radius: 20px;
       padding: 16px;
       border: 1px solid var(--border);
-      box-shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow-soft);
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -660,6 +784,17 @@
     .release-cover {
       height: 150px;
       border-radius: 14px;
+      background: var(--cover, var(--surface-soft));
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .release-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .release-card h3 {
@@ -685,7 +820,7 @@
       border-radius: 20px;
       padding: 18px;
       border: 1px solid var(--border);
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow-soft);
     }
 
     .feature-icon {
@@ -725,7 +860,7 @@
       border-radius: 18px;
       padding: 18px;
       border: 1px solid var(--border);
-      box-shadow: 0 16px 26px rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow-soft);
     }
 
     .testimonial-head {
@@ -811,18 +946,6 @@
       }
     }
 
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-
     @media (max-width: 1024px) {
       .hero {
         grid-template-columns: 1fr;
@@ -879,13 +1002,46 @@
 <body>
   @php
     $coverGradients = [
-        'linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%)',
-        'linear-gradient(135deg, #34d399 0%, #22c55e 100%)',
-        'linear-gradient(135deg, #fbbf24 0%, #f97316 100%)',
-        'linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)',
-        'linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%)',
-        'linear-gradient(135deg, #fb7185 0%, #f59e0b 100%)',
+        'linear-gradient(135deg, #c7d2fe 0%, #bfdbfe 100%)',
+        'linear-gradient(135deg, #a7f3d0 0%, #bbf7d0 100%)',
+        'linear-gradient(135deg, #fde68a 0%, #fed7aa 100%)',
+        'linear-gradient(135deg, #bfdbfe 0%, #dbeafe 100%)',
+        'linear-gradient(135deg, #99f6e4 0%, #bae6fd 100%)',
+        'linear-gradient(135deg, #fecdd3 0%, #fed7aa 100%)',
     ];
+
+    $thumbnailFor = function ($koleksi) {
+        if (!empty($koleksi->thumb_img)) {
+            $thumb = $koleksi->thumb_img;
+            return \Illuminate\Support\Str::startsWith($thumb, ['http://', 'https://']) ? $thumb : asset($thumb);
+        }
+
+        if ($koleksi->kategori === 'video' && !empty($koleksi->youtube_url)) {
+            $url = $koleksi->youtube_url;
+            parse_str(parse_url($url, PHP_URL_QUERY) ?? '', $query);
+            $videoId = $query['v'] ?? null;
+
+            if (!$videoId) {
+                $host = parse_url($url, PHP_URL_HOST);
+                $path = parse_url($url, PHP_URL_PATH);
+
+                if ($host && \Illuminate\Support\Str::contains($host, 'youtu.be')) {
+                    $videoId = ltrim($path ?? '', '/');
+                } elseif ($path) {
+                    $parts = array_values(array_filter(explode('/', $path)));
+                    if (isset($parts[0], $parts[1]) && $parts[0] === 'embed') {
+                        $videoId = $parts[1];
+                    } elseif (isset($parts[0], $parts[1]) && $parts[0] === 'shorts') {
+                        $videoId = $parts[1];
+                    }
+                }
+            }
+
+            return $videoId ? "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg" : null;
+        }
+
+        return null;
+    };
   @endphp
 
   <div class="nav-wrapper">
@@ -894,7 +1050,7 @@
         <div class="brand">
           <div class="brand-mark">EL</div>
           <div>
-            <span class="brand-title">E-Library Sulsel</span>
+            <span class="brand-title">E-Library Smart School</span>
             <span class="brand-sub">Dinas Pendidikan Provinsi Sulawesi Selatan</span>
           </div>
         </div>
@@ -904,7 +1060,7 @@
           <a href="{{ route('koleksi') }}">Koleksi</a>
           <a href="{{ route('rilis') }}">Rilis</a>
           <a href="{{ route('fitur') }}">Fitur</a>
-          <a href="{{ route('testimoni') }}">Testimoni</a>
+          {{-- <a href="{{ route('testimoni') }}">Testimoni</a> --}}
           <a href="{{ route('bantuan') }}">Bantuan</a>
         </nav>
         <div class="nav-actions">
@@ -936,7 +1092,7 @@
         <a href="{{ route('koleksi') }}">Koleksi</a>
         <a href="{{ route('rilis') }}">Rilis Terbaru</a>
         <a href="{{ route('fitur') }}">Fitur</a>
-        <a href="{{ route('testimoni') }}">Testimoni</a>
+        {{-- <a href="{{ route('testimoni') }}">Testimoni</a> --}}
         <a href="{{ route('bantuan') }}">Bantuan</a>
       </nav>
       <div class="mobile-menu-actions">
@@ -949,7 +1105,7 @@
   <main class="page">
     <section class="hero" id="beranda">
       <div class="hero-copy reveal">
-        <span class="eyebrow">Perpustakaan Digital Sulsel</span>
+        <span class="eyebrow">Perpustakaan Digital Smart School</span>
         <h1>Temukan dan Baca Sumber Belajar Favoritmu.</h1>
         <p>
           Akses koleksi ebook dan video pembelajaran untuk seluruh siswa di Sulawesi Selatan.
@@ -984,26 +1140,68 @@
       </div>
 
       <div class="hero-card reveal" style="animation-delay: 0.1s;">
-        <div class="hero-icon">BK</div>
+        {{-- <div class="hero-card-header">
+          <div class="hero-icon">BK</div>
+          <span class="hero-card-badge">Ringkasan</span>
+        </div> --}}
         <div class="hero-stat">
           <div class="hero-stat-value">{{ number_format($stats['sumber_belajar']) }}+</div>
           <div class="hero-stat-label">Sumber belajar tersedia</div>
         </div>
+        <div class="hero-card-visual">
+          <div class="hero-illustration" aria-hidden="true">
+            <svg viewBox="0 0 320 200" role="presentation">
+              <defs>
+                <linearGradient id="bookCover" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#2563eb" />
+                  <stop offset="100%" stop-color="#38bdf8" />
+                </linearGradient>
+                <linearGradient id="pageFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="100%" stop-color="#e2e8f0" />
+                </linearGradient>
+              </defs>
+              <rect x="28" y="22" width="264" height="156" rx="22" fill="#e0f2fe" />
+              <rect x="52" y="40" width="120" height="120" rx="16" fill="url(#bookCover)" />
+              <rect x="64" y="54" width="96" height="18" rx="9" fill="rgba(255,255,255,0.7)" />
+              <rect x="64" y="80" width="72" height="12" rx="6" fill="rgba(255,255,255,0.6)" />
+              <rect x="176" y="52" width="96" height="108" rx="16" fill="url(#pageFill)" />
+              <rect x="190" y="72" width="68" height="10" rx="5" fill="#cbd5f5" />
+              <rect x="190" y="92" width="54" height="10" rx="5" fill="#c7d2fe" />
+              <rect x="190" y="112" width="62" height="10" rx="5" fill="#cbd5f5" />
+              <circle cx="84" cy="158" r="10" fill="#facc15" />
+              <circle cx="230" cy="154" r="12" fill="#22c55e" opacity="0.6" />
+            </svg>
+          </div>
+        </div>
+        <div class="hero-card-divider"></div>
         <div class="metric-grid">
-          <div class="metric-card">
-            <div class="metric-label">Ebook</div>
+          <div class="metric-item ebook">
+            <div class="metric-left">
+              <span class="metric-dot" aria-hidden="true"></span>
+              <div class="metric-label">Ebook</div>
+            </div>
             <div class="metric-value">{{ number_format($stats['ebook']) }}</div>
           </div>
-          <div class="metric-card">
-            <div class="metric-label">Video</div>
+          <div class="metric-item video">
+            <div class="metric-left">
+              <span class="metric-dot" aria-hidden="true"></span>
+              <div class="metric-label">Video</div>
+            </div>
             <div class="metric-value">{{ number_format($stats['video']) }}</div>
           </div>
-          <div class="metric-card">
-            <div class="metric-label">Topik</div>
+          <div class="metric-item topik">
+            <div class="metric-left">
+              <span class="metric-dot" aria-hidden="true"></span>
+              <div class="metric-label">Topik</div>
+            </div>
             <div class="metric-value">{{ number_format($stats['topik']) }}</div>
           </div>
-          <div class="metric-card">
-            <div class="metric-label">Mapel</div>
+          <div class="metric-item mapel">
+            <div class="metric-left">
+              <span class="metric-dot" aria-hidden="true"></span>
+              <div class="metric-label">Mapel</div>
+            </div>
             <div class="metric-value">{{ number_format($stats['mata_pelajaran']) }}</div>
           </div>
         </div>
@@ -1050,11 +1248,17 @@
         <div class="collection-grid">
           @forelse ($hasilPencarian as $koleksi)
             <article class="collection-card reveal" style="animation-delay: {{ $loop->index * 0.05 }}s;">
-              <div class="cover" style="background: {{ $coverGradients[$loop->index % count($coverGradients)] }};">
+              @php
+                $thumb = $thumbnailFor($koleksi);
+              @endphp
+              <div class="cover" style="--cover: {{ $coverGradients[$loop->index % count($coverGradients)] }};">
+                @if ($thumb)
+                  <img src="{{ $thumb }}" alt="Thumbnail {{ $koleksi->judul }}" loading="lazy">
+                @endif
               </div>
               <div class="collection-body">
                 <h3>{{ $koleksi->judul }}</h3>
-                <p>{{ \Illuminate\Support\Str::limit($koleksi->deskripsi, 120) }}</p>
+                <p>{{ \Illuminate\Support\Str::limit(strip_tags($koleksi->deskripsi), 120) }}</p>
               </div>
               <div class="collection-meta">
                 <span>{{ $koleksi->mataPelajaran?->mata_pelajaran ?? 'Mata pelajaran umum' }}</span>
@@ -1085,11 +1289,17 @@
       <div class="collection-grid">
         @forelse ($koleksiKurasi as $koleksi)
           <article class="collection-card reveal" style="animation-delay: {{ $loop->index * 0.06 }}s;">
-            <div class="cover" style="background: {{ $coverGradients[$loop->index % count($coverGradients)] }};">
+            @php
+              $thumb = $thumbnailFor($koleksi);
+            @endphp
+            <div class="cover" style="--cover: {{ $coverGradients[$loop->index % count($coverGradients)] }};">
+              @if ($thumb)
+                <img src="{{ $thumb }}" alt="Thumbnail {{ $koleksi->judul }}" loading="lazy">
+              @endif
             </div>
             <div class="collection-body">
               <h3>{{ $koleksi->judul }}</h3>
-              <p>{{ \Illuminate\Support\Str::limit($koleksi->deskripsi, 120) }}</p>
+              <p>{{ \Illuminate\Support\Str::limit(strip_tags($koleksi->deskripsi), 120) }}</p>
             </div>
             <div class="collection-meta">
               <span>{{ $koleksi->mataPelajaran?->mata_pelajaran ?? 'Mata pelajaran umum' }}</span>
@@ -1123,8 +1333,15 @@
       <div class="release-grid">
         @forelse ($koleksiBaru as $koleksi)
           <article class="release-card reveal" style="animation-delay: {{ $loop->index * 0.08 }}s;">
+            @php
+              $thumb = $thumbnailFor($koleksi);
+            @endphp
             <div class="release-cover"
-              style="background: {{ $coverGradients[$loop->index % count($coverGradients)] }};"></div>
+              style="--cover: {{ $coverGradients[$loop->index % count($coverGradients)] }};">
+              @if ($thumb)
+                <img src="{{ $thumb }}" alt="Thumbnail {{ $koleksi->judul }}" loading="lazy">
+              @endif
+            </div>
             <h3>{{ $koleksi->judul }}</h3>
             <p>{{ $koleksi->mataPelajaran?->mata_pelajaran ?? 'Mata pelajaran umum' }} -
               {{ strtoupper($koleksi->kategori) }}</p>
@@ -1141,7 +1358,7 @@
     <section class="section" id="fitur">
       <div class="section-head">
         <div>
-          <h2>Kenapa E-Library Sulsel?</h2>
+          <h2>Kenapa E-Library Smart School?</h2>
           <p>Platform ini dirancang untuk membantu siswa belajar lebih cepat dengan konten resmi.</p>
         </div>
       </div>
@@ -1164,7 +1381,7 @@
       </div>
     </section>
 
-    <section class="section" id="testimoni">
+    {{-- <section class="section" id="testimoni">
       <div class="section-head">
         <div>
           <h2>Kata Mereka</h2>
@@ -1203,11 +1420,11 @@
           <p>Platform ini terasa resmi dan rapi, jadi nyaman dipakai di sekolah.</p>
         </div>
       </div>
-    </section>
+    </section> --}}
 
     <footer class="footer" id="bantuan">
       <div class="footer-col">
-        <div class="footer-title">E-Library Sulsel</div>
+        <div class="footer-title">E-Library Smart School</div>
         <div>Perpustakaan digital resmi untuk seluruh siswa di Sulawesi Selatan.</div>
         <div style="margin-top: 12px; font-size: 12px; color: var(--muted);">
           &copy; {{ date('Y') }} Dinas Pendidikan Provinsi Sulawesi Selatan. All rights reserved.

@@ -22,7 +22,7 @@ class SumberBelajarSeeder extends Seeder
                 'tingkatan' => 'X',
                 'kategori' => 'ebook',
                 'youtube_url' => null,
-                'file_url' => 'https://example.com/ebook-matematika.pdf',
+                'file_url' => '/samples/ebook-matematika.pdf',
                 'deskripsi' => 'Ebook mengenai dasar-dasar matematika untuk kelas X.',
             ],
             [

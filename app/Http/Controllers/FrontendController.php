@@ -122,9 +122,11 @@ class FrontendController extends Controller
     public function koleksi(Request $request)
     {
         $query = SumberBelajar::with(['mataPelajaran', 'topik']);
+        $search = trim((string) $request->get('q', ''));
+        $kategori = $request->filled('kategori') ? Str::lower((string) $request->get('kategori')) : null;
+        $topik = $request->filled('topik') ? $request->get('topik') : null;
 
-        if ($request->filled('q')) {
-            $search = $request->get('q');
+        if ($search !== '') {
             $query->where(function ($q) use ($search) {
                 $q->where('judul', 'like', '%' . $search . '%')
                     ->orWhere('deskripsi', 'like', '%' . $search . '%')
@@ -137,12 +139,18 @@ class FrontendController extends Controller
             });
         }
 
-        if ($request->filled('kategori')) {
-            $query->where('kategori', $request->get('kategori'));
+        if ($kategori) {
+            $query->whereRaw('LOWER(kategori) = ?', [$kategori]);
         }
 
-        if ($request->filled('topik')) {
-            $query->where('topik_id', $request->get('topik'));
+        if ($topik !== null) {
+            if (is_numeric($topik)) {
+                $query->where('topik_id', $topik);
+            } else {
+                $query->whereHas('topik', function ($rel) use ($topik) {
+                    $rel->where('topik', 'like', '%' . $topik . '%');
+                });
+            }
         }
 
         $materi = $query->latest()->paginate(12);

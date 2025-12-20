@@ -13,7 +13,7 @@
       <a href="{{ route('koleksi') }}" class="{{ request()->routeIs('koleksi*') ? 'active' : '' }}">Koleksi</a>
       <a href="{{ route('rilis') }}" class="{{ request()->routeIs('rilis') ? 'active' : '' }}">Rilis Terbaru</a>
       <a href="{{ route('fitur') }}" class="{{ request()->routeIs('fitur') ? 'active' : '' }}">Fitur</a>
-      <a href="{{ route('testimoni') }}" class="{{ request()->routeIs('testimoni') ? 'active' : '' }}">Testimoni</a>
+      {{-- <a href="{{ route('testimoni') }}" class="{{ request()->routeIs('testimoni') ? 'active' : '' }}">Testimoni</a> --}}
       <a href="{{ route('bantuan') }}" class="{{ request()->routeIs('bantuan') ? 'active' : '' }}">Bantuan</a>
     </nav>
     <div class="mobile-menu-actions">
